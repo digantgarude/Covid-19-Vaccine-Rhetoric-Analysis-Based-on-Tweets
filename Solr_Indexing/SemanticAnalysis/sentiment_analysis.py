@@ -43,6 +43,7 @@ class SentimentAnalysis:
         file_count = 0
         current_tweets = []
         for tweet in tqdm(self.tweets):
+            counter += 1
             if tweet['tweet_lang'] not in ["en", "hi", "es"]:
                 continue
             sentiment, sentiment_score = self.get_sentiment(tweet)
@@ -53,9 +54,10 @@ class SentimentAnalysis:
             current_tweets.append(tweet)
 
             if counter % 100 == 0:
-                current_tweets = []
+                file_count += 1
                 with open(f"./data/tweets_{file_count}.pkl", "wb") as f:
                     pickle.dump(current_tweets, f, protocol=pickle.HIGHEST_PROTOCOL)
+                current_tweets = []
         return self.modified_tweets
 
     def upload_modified_tweets(self):
