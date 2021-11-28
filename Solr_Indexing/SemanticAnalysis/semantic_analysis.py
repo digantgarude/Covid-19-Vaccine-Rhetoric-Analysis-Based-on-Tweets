@@ -6,7 +6,7 @@ client = boto3.client('comprehend')
 
 solr_url = f'http://{AWS_IP}:8983/solr/'
 print(f"URL : {solr_url}\nCORE : {CORE_NAME}")
-connection = pysolr.Solr(solr_url + CORE_NAME, always_commit=True, timeout=5000000)
+connection = pysolr.Solr(solr_url + CORE_NAME, always_commit=True)
 print(f"Connection : {connection}")
 
 results = connection.search(q='*:*',**{
