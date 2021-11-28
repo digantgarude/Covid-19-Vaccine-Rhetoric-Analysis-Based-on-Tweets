@@ -6,4 +6,4 @@ CONSOLE_LOGIN_LINK = "https://174019810575.signin.aws.amazon.com/console"
 region="us-east-1"
 
 CORE_NAME = "IRF21P1"
-AWS_IP = "18.216.184.141"
+AWS_IP = "3.141.19.45"
