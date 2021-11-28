@@ -1,18 +1,18 @@
-from Solr_Indexing.SemanticAnalysis.cred import AWS_IP_DG
+# from Solr_Indexing.SemanticAnalysis.cred import AWS_IP_DG
 import boto3
 import pysolr
-from cred import aws_access_key_id, aws_secret_access_key, CORE_NAME_FETCH, AWS_IP
+# from cred import aws_access_key_id, aws_secret_access_key, CORE_NAME_FETCH, AWS_IP
 import pickle
 from tqdm import tqdm
 
 class SentimentAnalysis:
-    def __init__(self) -> None:
+    def __init__(self):
         self.client = boto3.client('comprehend')
         self.solr_url = None
         self.connection = None
         self.tweets = []
         
-    def connection(self, CORE_NAME_FETCH, AWS_IP):
+    def connect(self, CORE_NAME_FETCH, AWS_IP):
         self.solr_url = f'http://{AWS_IP}:8983/solr/'
         self.connection = pysolr.Solr(self.solr_url + CORE_NAME_FETCH, always_commit=True, timeout=5000000)
 
@@ -25,6 +25,7 @@ class SentimentAnalysis:
 
 
     def get_sentiment(self, tweet):
+        # print(f"Lang : {tweet['tweet_lang']}")
         response = self.client.batch_detect_sentiment(
                 TextList=[
                     tweet['tweet_text'],
@@ -42,15 +43,18 @@ class SentimentAnalysis:
         file_count = 0
         current_tweets = []
         for tweet in tqdm(self.tweets):
+            if tweet['tweet_lang'] not in ["en", "hi", "es"]:
+                continue
             sentiment, sentiment_score = self.get_sentiment(tweet)
-            tweet.sentiment = sentiment
-            tweet.sentiment_score = sentiment_score
+            tweet["sentiment"] = sentiment
+            tweet["sentiment_score"] = sentiment_score
+            del tweet["_version_"]
             self.modified_tweets.append(tweet)
             current_tweets.append(tweet)
 
             if counter % 100 == 0:
                 current_tweets = []
-                with open(f"./data/tweets_{file_count}.pkl") as f:
+                with open(f"./data/tweets_{file_count}.pkl", "wb") as f:
                     pickle.dump(current_tweets, f, protocol=pickle.HIGHEST_PROTOCOL)
         return self.modified_tweets
 
