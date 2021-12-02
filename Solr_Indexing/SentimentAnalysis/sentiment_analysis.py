@@ -21,7 +21,7 @@ class SentimentAnalysis:
             'rows': no_of_rows,
             'fl': filters 
         }))
-        return self.get_tweets
+        return self.tweets
 
 
     def get_sentiment(self, tweet):
@@ -37,7 +37,7 @@ class SentimentAnalysis:
 
         return sentiment, sentiment_score
 
-    def perform_analysis(self):
+    def perform_analysis(self, CORE_NAME_UPLOAD, AWS_IP_UPLOAD):
         self.modified_tweets = []
         counter = 0
         file_count = 0
@@ -55,6 +55,9 @@ class SentimentAnalysis:
 
             if counter % 100 == 0:
                 file_count += 1
+                self.connect(CORE_NAME_UPLOAD, AWS_IP_UPLOAD)
+                for doc in tqdm(current_tweets):
+                    self.connection.add(doc)
                 with open(f"./data/tweets_{file_count}.pkl", "wb") as f:
                     pickle.dump(current_tweets, f, protocol=pickle.HIGHEST_PROTOCOL)
                 current_tweets = []
