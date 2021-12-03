@@ -11,7 +11,7 @@ class SolrConnect:
         
     def connect(self, CORE_NAME_FETCH, AWS_IP):
         self.solr_url = f'http://{AWS_IP}:8983/solr/'
-        self.connection = pysolr.Solr(self.solr_url + CORE_NAME_FETCH, always_commit=True, timeout=5000000)
+        self.connection = pysolr.Solr(self.solr_url + CORE_NAME_FETCH, always_commit=True, timeout=50000)
 
     def get_tweets(self, query_params='*:*', filters = '*' , no_of_rows = 100000):
         self.tweets = list(self.connection.search(q=query_params,**{
