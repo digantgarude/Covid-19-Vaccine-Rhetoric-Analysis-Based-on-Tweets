@@ -8,6 +8,8 @@ import { ChartsCountryCovidComponent } from './charts-country-covid/charts-count
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from './material.module';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MaterialModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
