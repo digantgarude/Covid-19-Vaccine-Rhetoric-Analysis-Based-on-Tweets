@@ -9,12 +9,16 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
+import { SentimentPieChartComponent } from './sentiment-pie-chart/sentiment-pie-chart.component';
+import { VaccinationsChartComponent } from './vaccinations-chart/vaccinations-chart.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChartsCountryCovidComponent
+    ChartsCountryCovidComponent,
+    SentimentPieChartComponent,
+    VaccinationsChartComponent
   ],
   imports: [
     BrowserModule,
