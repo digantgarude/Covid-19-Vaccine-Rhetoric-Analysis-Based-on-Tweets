@@ -140,27 +140,25 @@ export class ChartsCountryCovidComponent implements OnInit {
         };
     }
 
-    async renderChart() {
+    async renderChart(event: any) {
         let from_date_str = formatDate(this.range.value.start, "yyyy-MM-dd", 'en-US');
         let till_date_str = formatDate(this.range.value.end, "yyyy-MM-dd", 'en-US');
-        console.log(`FROM : ${from_date_str}\nTILL : ${till_date_str}`)
-        // from_date_str = from_date_str.slice(0,9)
-        // till_date_str = till_date_str.slice(0,9)
-        
-
-        console.log(`FROM : ${from_date_str}\nTILL : ${till_date_str}`)
-        this.offChainService.getCountryCasesAll(this.country_selected, from_date_str, till_date_str)
-        .subscribe(async (data:any) => {
-            await this.dataFill(data.data)
-            Highcharts.chart('container', this.options);
-        })
+        if(event.value){
+            this.offChainService.getCountryCasesAll(this.country_selected, from_date_str, till_date_str)
+            .subscribe(async (data:any) => {
+                await this.dataFill(data.data)
+                Highcharts.chart('covid-cases-by-country-container', this.options);
+            })
+        }
     }
     
     ngOnInit() {
         this.from_date = this.range.value.start;
         this.till_date = this.range.value.end;
         console.log(`From Date : ${this.from_date}\nTill Date : ${this.till_date}`)
-        this.renderChart()
+        this.renderChart({
+            value:1
+          })
     }
 
 
