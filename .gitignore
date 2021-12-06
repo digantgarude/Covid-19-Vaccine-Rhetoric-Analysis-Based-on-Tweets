@@ -68,6 +68,9 @@ instance/
 # Scrapy stuff:
 .scrapy
 
+.ipynb_checkpoints
+
+
 # Sphinx documentation
 docs/_build/
 
