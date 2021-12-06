@@ -1,14 +1,63 @@
 .example-sidenav {
-    width: 450px;
     background-color: #2C363F;
     box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #e7e3e31f;
+    margin-left: 15px;
+    border-radius: 50px;
   }
 
+  .example-sidenav-2{
+    background-color: inherit;
+    // box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #e7e3e31f;
+    border: none;
+    margin-right: 15px;
+    width: 300px;
+  }
+
+
+  .center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.overlay{
+  height:100vh;
+  width:100%;
+  background-color:rgba(0, 0, 0, 0.286);
+  z-index:    10;
+  top:        0; 
+  left:       0; 
+  position:   fixed;
+}
+
+.example-container{
+  background-color: #f2f3f2;
+}
+
+  ::ng-deep .mat-drawer-inner-container {
+    overflow: hidden !important;
+  }
+  ::ng-deep .mat-focused .mat-form-field-label {
+    color: white !important;
+ }
+ ::ng-deep .mat-form-field-label {
+  color: white !important;
+}
+  mat-form-field{
+    margin: 30px;
+    border-radius: 100px;
+    background-color: #475a69b6;
+    width: 425px;
+    color: #f2f3f2;
+  }
   .example-sidenav-content{
     display: flex;
     height: 100%;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     background-color: #f2f3f2;
   }
 
@@ -23,13 +72,13 @@
     vertical-align: middle;
 }
 
-input{
-    padding: inherit;
-    border-radius: 100px;
-    background-color: #475a69b6;
-    padding: 10px;
-    margin-left: 10px;
-}
+// input{
+//     padding: inherit;
+//     border-radius: 100px;
+//     background-color: #475a69b6;
+//     padding: 10px;
+//     margin-left: 10px;
+// }
 
   a.mat-list-item{
     color: whitesmoke !important;
@@ -80,11 +129,12 @@ input{
   ::ng-deep .mat-form-field-underline {
     display: none;
   }
-  ::ng-deep .mat-select {
-    width: 100px !important;
+  ::ng-deep .mat-form-field-wrapper {
+    padding: 0;
 }
 .mat-icon{
     color: sandybrown;
+    transform: scale(1.25);
 }
 
 h1{
