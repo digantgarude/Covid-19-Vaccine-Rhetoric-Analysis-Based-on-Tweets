@@ -1,34 +1,45 @@
 <div class="box">
 
-  <mat-sidenav-container class="example-container" autosize>
+  <mat-sidenav-container class="example-container">
 
-    <mat-sidenav #sidenav mode="side" position="end" [opened]="searchFlag" class="example-sidenav" fixedInViewport="false">
+    <mat-sidenav fixedTopGap="50" fixedBottomGap="150" #sidenav disableClose="true" mode="side" position="start" opened
+      class="example-sidenav" fixedInViewport="true">
 
-      <!--  -->
+      <div class="row">
+        <form [formGroup]="searchForm" class="example-form">
+          <mat-form-field appearance="fill">
+            <mat-label>Search</mat-label>
+            <mat-icon matPrefix>search</mat-icon>
+            <input (keydown.enter)="search()" type="text" matInput formControlName="searchFormControlName">
+            <button *ngIf="searchForm.value.searchFormControlName" matSuffix mat-icon-button aria-label="Search"
+              (click)="resetSearchBar()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </form>
+      </div>
     </mat-sidenav>
 
     <mat-sidenav-content class="example-sidenav-content">
-      <mat-toolbar class="header" color="primary">
-        <mat-toolbar-row>
-          <span [routerLink]="['']">
-            <h1>MediC</h1>
-          </span>
-
-          <form [formGroup]="searchForm" class="search-bar">
-            <mat-form-field class="example-form-field" appearance="standard">
-              <input matInput (keydown.enter)="search()" formControlName="searchFormControlName"
-                placeholder="Enter Search Terms Here" type="text">
-              <button (click)="search()" class="search-icon" mat-icon-button>
-                <mat-icon  matSuffix>search</mat-icon>
-              </button>
-
-            </mat-form-field>
-          </form>
-        </mat-toolbar-row>
-      </mat-toolbar>
-      <router-outlet></router-outlet>
+      <app-search-results *ngIf="searchFlag" [tweets]=tweets></app-search-results>
 
     </mat-sidenav-content>
 
+    <mat-sidenav #sidenav [opened]="searchFlag" disableClose="true" mode="side" position="end" class="example-sidenav-2"
+      fixedInViewport="true">
+
+      <div class="row">
+      </div>
+
+
+    </mat-sidenav>
+
   </mat-sidenav-container>
+  <div *ngIf="spinnerService.visibility | async" class="overlay">
+    <div class="center">
+      <mat-spinner diameter="150" ></mat-spinner>
+    </div>
+  </div>
+
+
 </div>

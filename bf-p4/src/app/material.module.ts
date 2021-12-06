@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav'
-import { A11yModule } from '@angular/cdk/a11y';
-import { CdkAccordionModule } from '@angular/cdk/accordion';
-import { ClipboardModule } from '@angular/cdk/clipboard';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { PortalModule } from '@angular/cdk/portal';
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { CdkStepperModule } from '@angular/cdk/stepper';
-import { CdkTableModule } from '@angular/cdk/table';
-import { CdkTreeModule } from '@angular/cdk/tree';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+// import { A11yModule } from '@angular/cdk/a11y';
+// import { CdkAccordionModule } from '@angular/cdk/accordion';
+// import { ClipboardModule } from '@angular/cdk/clipboard';
+// import { DragDropModule } from '@angular/cdk/drag-drop';
+// import { PortalModule } from '@angular/cdk/portal';
+// import { ScrollingModule } from '@angular/cdk/scrolling';
+// import { CdkStepperModule } from '@angular/cdk/stepper';
+// import { CdkTableModule } from '@angular/cdk/table';
+// import { CdkTreeModule } from '@angular/cdk/tree';
+// import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -42,7 +42,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import { OverlayModule } from '@angular/cdk/overlay';
+// import { OverlayModule } from '@angular/cdk/overlay';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -59,17 +59,17 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
-    A11yModule,
-    CdkAccordionModule,
-    ClipboardModule,
-    DragDropModule,
-    PortalModule,
-    ScrollingModule,
-    CdkStepperModule,
-    CdkTableModule,
+    // A11yModule,
+    // CdkAccordionModule,
+    // ClipboardModule,
+    // DragDropModule,
+    // PortalModule,
+    // ScrollingModule,
+    // CdkStepperModule,
+    // CdkTableModule,
     MatSnackBarModule,
-    CdkTreeModule,
-    MatAutocompleteModule,
+    // CdkTreeModule,
+    // MatAutocompleteModule,
     MatBadgeModule,
     MatBottomSheetModule,
     MatButtonToggleModule,
@@ -90,11 +90,12 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatRippleModule,
     MatGridListModule,
     MatInputModule,
-    OverlayModule,
+    // OverlayModule,
     MatTreeModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatTabsModule
+    MatTabsModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule { }
