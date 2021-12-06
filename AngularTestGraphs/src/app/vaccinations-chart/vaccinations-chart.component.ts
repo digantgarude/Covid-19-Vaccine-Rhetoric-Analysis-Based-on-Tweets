@@ -37,7 +37,8 @@ export class VaccinationsChartComponent implements OnInit {
   async dataFill(data:any){
     this.options = {
       chart: {
-        zoomType: 'xy'
+        zoomType: 'xy',
+        type: "column"
       },
       title: {
         text: this.country_selected+' vaccination rate',
@@ -92,7 +93,7 @@ export class VaccinationsChartComponent implements OnInit {
       },
       series: [{
         name: 'Total Vaccinations',
-        type: 'spline',
+        type: 'line',
         yAxis: 1,
         data: data.total_vaccinations,
         color: "#4895ef",

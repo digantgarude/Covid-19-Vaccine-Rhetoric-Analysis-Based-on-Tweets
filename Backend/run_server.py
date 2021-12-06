@@ -89,18 +89,32 @@ def get_country_cases():
         df_country_data_after_date = df_country_data[df_country_data['date'] >= from_date]
         df_country_data_till_date = df_country_data_after_date[df_country_data_after_date['date'] <= till_date]
 
-        df_country_data_till_date['date'] = df_country_data_till_date.date.dt.strftime("%Y-%m-%d")
         df_response_data = df_country_data_till_date
+        
+        df_response_data['date'] = df_country_data_till_date.date.dt.strftime("%Y-%m-%d")
+
+        df_response_data['confirmed_daily']=df_response_data['confirmed'].diff().fillna(df_response_data['confirmed'])
+        df_response_data['confirmed_daily'].iloc[0] = df_response_data['confirmed_daily'].iloc[1]
+
+        df_response_data['deaths_daily']=df_response_data['deaths'].diff().fillna(df_response_data['deaths'])
+        df_response_data['deaths_daily'].iloc[0] = df_response_data['deaths_daily'].iloc[1]
         
         data = {
             "Date":list(df_response_data.date),
             "Confirmed":list(df_response_data.confirmed),
+            "Confirmed_Daily":list(df_response_data.confirmed_daily),
             "Deceased":list(df_response_data.deaths),
+            "Deceased_Daily":list(df_response_data.deaths_daily),
             "Recovered":list(df_response_data.recovered)
         }
 
         return {
-            "data": data
+            "Date":list(df_response_data.date),
+            "Confirmed":list(df_response_data.confirmed),
+            "Confirmed_Daily":list(df_response_data.confirmed_daily),
+            "Deceased":list(df_response_data.deaths),
+            "Deceased_Daily":list(df_response_data.deaths_daily),
+            "Recovered":list(df_response_data.recovered)
             }
     else:
         return "Try POST request"   
@@ -110,6 +124,7 @@ def update_country_count():
     print("UPDATED WORLD COUNT")
     global res_world_count 
     res_world_count = requests.get(url_world).json()
+    
 
 
 if __name__ == "__main__":
