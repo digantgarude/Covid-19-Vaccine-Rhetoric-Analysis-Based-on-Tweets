@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
 import { SentimentPieChartComponent } from './sentiment-pie-chart/sentiment-pie-chart.component';
 import { VaccinationsChartComponent } from './vaccinations-chart/vaccinations-chart.component';
+import { CovidDeathsCountryChartComponent } from './covid-deaths-country-chart/covid-deaths-country-chart.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { VaccinationsChartComponent } from './vaccinations-chart/vaccinations-ch
     AppComponent,
     ChartsCountryCovidComponent,
     SentimentPieChartComponent,
-    VaccinationsChartComponent
+    VaccinationsChartComponent,
+    CovidDeathsCountryChartComponent
   ],
   imports: [
     BrowserModule,

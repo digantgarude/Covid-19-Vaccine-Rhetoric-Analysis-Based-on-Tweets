@@ -19,6 +19,9 @@ export class ChartsCountryCovidComponent implements OnInit {
     public from_date:Date = new Date("2020-10-20");
     public till_date:Date = new Date("2020-11-20");
     public country_selected:String = "US";
+    public column_color:String = "#4895ef";
+    // public line_color:String = "#e63946";
+    public line_color:String = "#4c4c4c";
 
     public range:any = new FormGroup({
         start: new FormControl(this.from_date),
@@ -45,36 +48,39 @@ export class ChartsCountryCovidComponent implements OnInit {
                 categories: data.Date,
                 crosshair: true
             }],
+            plotOptions: {
+                series: {
+                    borderRadius: 5
+                }
+            },
             yAxis: [{
                 labels: {
                     format: '{value}',
                     style: {
-                        color: "#4895ef"
+                        color: this.column_color
                     }
                 },
                 title: {
-                    text: 'Confirmed',
+                    text: 'Daily Confirmed',
                     style: {
-                        color: "#4895ef"
+                        color: this.column_color
                     }
-                },
-                opposite: false
-                
+                }
             }, {
                 gridLineWidth: 0,
                 title: {
-                    text: 'Deaths',
+                    text: 'Total Confirmed',
                     style: {
-                        color: "#e63946"
+                        color: this.line_color
                     }
                 },
                 labels: {
                     format: '{value}',
                     style: {
-                        color: "#e63946"
+                        color: this.line_color
                     }
                 },
-                opposite: true
+                opposite:true
             }],
             tooltip: {
                 shared: true
@@ -88,19 +94,23 @@ export class ChartsCountryCovidComponent implements OnInit {
                 floating: true,
                 backgroundColor: 'rgba(255,255,255,0.25)'
             },
-            series: [{
-                name: 'Confirmed',
-                type: 'spline',
-                yAxis: 1,
-                data: data.Confirmed,
-                color: "#4895ef",
+            series: [
+            {
+                name: 'Daily Confirmed',
+                type: 'column',
+                yAxis: 0,
+                borderRadiusTopLeft: '20px',
+                borderRadiusTopRight: '20px',
+                data: data.Confirmed_Daily,
+                color: this.column_color,
                 marker:false
             },{
-                name: 'Deaths',
+                name: 'Total Confirmed',
                 type: 'spline',
-                data: data.Deceased,
-                color: "#e63946",
-                dashStyle: 'shortdot',
+                yAxis:1,
+                data: data.Confirmed,
+                color: this.line_color,
+                // dashStyle: 'shortdot',
                 marker:false
             }],
             responsive: {
@@ -146,7 +156,7 @@ export class ChartsCountryCovidComponent implements OnInit {
         if(event.value){
             this.offChainService.getCountryCasesAll(this.country_selected, from_date_str, till_date_str)
             .subscribe(async (data:any) => {
-                await this.dataFill(data.data)
+                await this.dataFill(data)
                 Highcharts.chart('covid-cases-by-country-container', this.options);
             })
         }
