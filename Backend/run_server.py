@@ -4,14 +4,25 @@ import argparse
 from flask_cors import CORS
 import pandas as pd
 from apscheduler.schedulers.background import BackgroundScheduler
+import pymongo
+from variables import MONGO_CONNECT_URL
+
+
+
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--host", type=str, required=True)
-parser.add_argument("--port", type=int, required=True)
+parser.add_argument("--host", type=str, required=False, default="0.0.0.0")
+parser.add_argument("--port", type=int, required=False, default=8080)
+parser.add_argument("--db_name", type=str, required=False, default="ir_535")
 
 args            = parser.parse_args()
 host            = args.host
 port            = args.port
+db_name            = args.db_name
+
+client = pymongo.MongoClient(MONGO_CONNECT_URL)
+
+db = client.get_database(db_name)
 
 app = Flask(__name__)
 CORS(app)
@@ -117,14 +128,37 @@ def get_country_cases():
             "Recovered":list(df_response_data.recovered)
             }
     else:
-        return "Try POST request"   
-
+        return "Try POST request"  
 
 def update_country_count():
     print("UPDATED WORLD COUNT")
     global res_world_count 
     res_world_count = requests.get(url_world).json()
     
+
+@app.route("/get_tweets_by_ids/", methods=['GET', 'POST'])
+def get_tweets_by_ids():
+    if request.method == "POST":
+        data = request.json
+        print(data)
+        response = list(db['tweets'].find({
+            "id": {"$in":data['tweet_ids']}
+        }))
+        # response = list(db['tweets'].find({}))
+        print("response")
+        print(response)
+        cleaned_response = []
+        for obj in response:
+
+            obj['_id'] = str(obj['_id']) 
+            cleaned_response.append(obj)
+
+        
+        return {
+            "tweets": cleaned_response
+        }
+    else:
+        return "Try POST request"   
 
 
 if __name__ == "__main__":
