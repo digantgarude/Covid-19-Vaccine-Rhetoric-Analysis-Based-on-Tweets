@@ -18,9 +18,12 @@ import { formatDate } from "@angular/common";
 export class VaccinationsChartComponent implements OnInit {
   
   public country_selected:String = "USA";
-
   public from_date:Date = new Date("2021-01-15");
   public till_date:Date = new Date("2021-03-15");
+  
+  public column_color:String = "#aae479";
+  // public line_color:String = "#4895ef";
+  public line_color:String = "#4c4c4c";
   
   public range:any = new FormGroup({
     start: new FormControl(this.from_date),
@@ -49,35 +52,35 @@ export class VaccinationsChartComponent implements OnInit {
         crosshair: true
       }],
       yAxis: [{
+        gridLineWidth: 0,
+        title: {
+          text: 'Total Daily Vaccinations',
+          style: {
+            color: this.column_color
+          }
+        },
         labels: {
           format: '{value}',
           style: {
-            color: "#4895ef"
+            color: this.column_color
+          }
+        },
+        opposite: true
+      }, {
+        labels: {
+          format: '{value}',
+          style: {
+            color: this.line_color
           }
         },
         title: {
           text: 'Total Vaccinations',
           style: {
-            color: "#4895ef"
+            color: this.line_color
           }
         },
         opposite: false
         
-      }, {
-        gridLineWidth: 0,
-        title: {
-          text: 'People Fully Vaccinated',
-          style: {
-            color: "#e63946"
-          }
-        },
-        labels: {
-          format: '{value}',
-          style: {
-            color: "#e63946"
-          }
-        },
-        opposite: true
       }],
       tooltip: {
         shared: true
@@ -91,78 +94,86 @@ export class VaccinationsChartComponent implements OnInit {
         floating: true,
         backgroundColor: 'rgba(255,255,255,0.25)'
       },
-      series: [{
-        name: 'Total Vaccinations',
-        type: 'line',
-        yAxis: 1,
-        data: data.total_vaccinations,
-        color: "#4895ef",
-        marker:false
-      },{
-        name: 'People fully vaccinated',
-        type: 'line',
-        data: data.people_fully_vaccinated,
-        color: "#e63946",
-        dashStyle: 'shortdot',
-        marker:false
-      }],
-      responsive: {
-        rules: [{
-          condition: {
-            maxWidth: 500
-          },
-          chartOptions: {
-            legend: {
-              floating: false,
-              layout: 'horizontal',
-              align: 'center',
-              verticalAlign: 'bottom',
-              x: 0,
-              y: 0
+      plotOptions: {
+        series: {
+            borderRadius: 5,
+            // shadow: true,
+            
+        }
+      },
+      series: [
+        {
+          name: 'Total Daily Vaccinations',
+          type: 'column',
+          data: data.total_vaccinations_daily,
+          color: this.column_color,
+          marker:false
+        },{
+          name: 'Total Vaccinations',
+          type: 'line',
+          yAxis: 1,
+          data: data.total_vaccinations,
+          color: this.line_color,
+          marker:false
+        }],
+        responsive: {
+          rules: [{
+            condition: {
+              maxWidth: 500
             },
-            yAxis: [{
-              labels: {
-                align: 'right',
+            chartOptions: {
+              legend: {
+                floating: false,
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom',
                 x: 0,
-                y: -6
+                y: 0
               },
-              showLastLabel: false
-            }, {
-              labels: {
-                align: 'left',
-                x: 0,
-                y: -6
-              },
-              showLastLabel: false
-            }, {
-              visible: false
-            }]
-          }
-        }]
+              yAxis: [{
+                labels: {
+                  align: 'right',
+                  x: 0,
+                  y: -6
+                },
+                showLastLabel: false
+              }, {
+                labels: {
+                  align: 'left',
+                  x: 0,
+                  y: -6
+                },
+                showLastLabel: false
+              }, {
+                visible: false
+              }]
+            }
+          }]
+        }
+      };
+    }
+    
+    async renderChart(event: any) {
+      let from_date_str = formatDate(this.range.value.start, "yyyy-MM-dd", 'en-US');
+      let till_date_str = formatDate(this.range.value.end, "yyyy-MM-dd", 'en-US');
+      
+      console.log(`CLICK ENTER : \nFrom Date : ${this.from_date}\nTill Date : ${this.till_date}`)
+      if(event.value){
+        this.offChainService.getCountryVaccinations(this.country_selected, from_date_str, till_date_str)
+        .subscribe(async (data:any) => {
+          await this.dataFill(data)
+          Highcharts.chart('vaccinations-by-country-container', this.options);
+        })
       }
-    };
-  }
-  
-  async renderChart(event: any) {
-    let from_date_str = formatDate(this.range.value.start, "yyyy-MM-dd", 'en-US');
-    let till_date_str = formatDate(this.range.value.end, "yyyy-MM-dd", 'en-US');
-
-    console.log(`CLICK ENTER : \nFrom Date : ${this.from_date}\nTill Date : ${this.till_date}`)
-    if(event.value){
-      this.offChainService.getCountryVaccinations(this.country_selected, from_date_str, till_date_str)
-      .subscribe(async (data:any) => {
-        await this.dataFill(data)
-        Highcharts.chart('vaccinations-by-country-container', this.options);
+    }
+    
+    ngOnInit() {
+      this.from_date = this.range.value.start;
+      this.till_date = this.range.value.end;
+      console.log(`From Date : ${this.from_date}\nTill Date : ${this.till_date}`)
+      this.renderChart({
+        value:1
       })
     }
   }
   
-  ngOnInit() {
-    this.from_date = this.range.value.start;
-    this.till_date = this.range.value.end;
-    console.log(`From Date : ${this.from_date}\nTill Date : ${this.till_date}`)
-    this.renderChart({
-      value:1
-    })
-  }
-}
