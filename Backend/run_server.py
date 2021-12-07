@@ -6,9 +6,7 @@ import pandas as pd
 from apscheduler.schedulers.background import BackgroundScheduler
 import pymongo
 from variables import MONGO_CONNECT_URL
-
-
-
+import df_utils
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--host", type=str, required=False, default="0.0.0.0")
@@ -18,7 +16,7 @@ parser.add_argument("--db_name", type=str, required=False, default="ir_535")
 args            = parser.parse_args()
 host            = args.host
 port            = args.port
-db_name            = args.db_name
+db_name         = args.db_name
 
 client = pymongo.MongoClient(MONGO_CONNECT_URL)
 
@@ -54,34 +52,34 @@ vaccinations_mexico_df["date"] = pd.to_datetime(vaccinations_mexico_df["date"], 
 def get_country_vaccinations():
     if request.method == "GET":
         country = request.args.get("country")
-
         from_date = request.args.get("from_date")
         till_date = request.args.get("till_date")
 
         if country == "India":
-            vaccinations_df = vaccinations_india_df
+            df = vaccinations_india_df
         elif country == "USA":
-            vaccinations_df = vaccinations_usa_df
+            df = vaccinations_usa_df
         elif country == "Mexico":
-            vaccinations_df = vaccinations_mexico_df
+            df = vaccinations_mexico_df
         else:
             return {
                 "error" : "country is wrong"
             }
 
-
-        vaccinations_df_after_date = vaccinations_df[vaccinations_df['date'] >= from_date]
-        vaccinations_df_till_date = vaccinations_df_after_date[vaccinations_df_after_date['date'] <= till_date]
-
-        vaccinations_df_till_date['date'] = vaccinations_df_till_date.date.dt.strftime("%Y-%m-%d")
-        df_response_data = vaccinations_df_till_date
+        df = df_utils.get_between_dates(df, "date", from_date, till_date)
+        df['date'] = df.date.dt.strftime("%Y-%m-%d")
+        df = df_utils.get_reverse_cumsum(df, "total_vaccinations", "daily")
+        df = df_utils.get_reverse_cumsum(df, "people_vaccinated", "daily")
+        df = df_utils.get_reverse_cumsum(df, "people_fully_vaccinated", "daily")
 
         return {
-            "Date": list(df_response_data.date),
-            "total_vaccinations": list(df_response_data.total_vaccinations),
-            "people_vaccinated": list(df_response_data.people_vaccinated),
-            "people_fully_vaccinated": list(df_response_data.people_fully_vaccinated),
-            "total_boosters": list(df_response_data.total_boosters)
+            "Date": list(df.date),
+            "total_vaccinations": list(df.total_vaccinations),
+            "total_vaccinations_daily": list(df.total_vaccinations_daily),
+            "people_vaccinated": list(df.people_vaccinated),
+            "people_vaccinated_daily": list(df.people_vaccinated_daily),
+            "people_fully_vaccinated": list(df.people_fully_vaccinated),
+            "people_fully_vaccinated_daily": list(df.people_fully_vaccinated_daily),
         }
     else:
         return "Try POST request"   
@@ -94,38 +92,27 @@ def get_country_cases():
         from_date = request.args.get("from_date")
         till_date = request.args.get("till_date")
 
-        df_country_data = pd.DataFrame.from_dict(res_world_count.get(country),orient='columns')
-        df_country_data["date"] = pd.to_datetime(df_country_data["date"], format='%Y-%m-%d')
+        df = pd.DataFrame.from_dict(res_world_count.get(country),orient='columns')
 
-        df_country_data_after_date = df_country_data[df_country_data['date'] >= from_date]
-        df_country_data_till_date = df_country_data_after_date[df_country_data_after_date['date'] <= till_date]
+        df["date"] = pd.to_datetime(df["date"], format='%Y-%m-%d')
 
-        df_response_data = df_country_data_till_date
-        
-        df_response_data['date'] = df_country_data_till_date.date.dt.strftime("%Y-%m-%d")
+        # Get data between dates
+        df = df_utils.get_between_dates(df, "date", from_date, till_date)
 
-        df_response_data['confirmed_daily']=df_response_data['confirmed'].diff().fillna(df_response_data['confirmed'])
-        df_response_data['confirmed_daily'].iloc[0] = df_response_data['confirmed_daily'].iloc[1]
+            # Convert datetime to str again
+        df['date'] = df.date.dt.strftime("%Y-%m-%d")
 
-        df_response_data['deaths_daily']=df_response_data['deaths'].diff().fillna(df_response_data['deaths'])
-        df_response_data['deaths_daily'].iloc[0] = df_response_data['deaths_daily'].iloc[1]
-        
-        data = {
-            "Date":list(df_response_data.date),
-            "Confirmed":list(df_response_data.confirmed),
-            "Confirmed_Daily":list(df_response_data.confirmed_daily),
-            "Deceased":list(df_response_data.deaths),
-            "Deceased_Daily":list(df_response_data.deaths_daily),
-            "Recovered":list(df_response_data.recovered)
-        }
+        # --------
+        df = df_utils.get_reverse_cumsum(df, "confirmed", "daily")
+        df = df_utils.get_reverse_cumsum(df, "deaths", "daily")
 
         return {
-            "Date":list(df_response_data.date),
-            "Confirmed":list(df_response_data.confirmed),
-            "Confirmed_Daily":list(df_response_data.confirmed_daily),
-            "Deceased":list(df_response_data.deaths),
-            "Deceased_Daily":list(df_response_data.deaths_daily),
-            "Recovered":list(df_response_data.recovered)
+            "Date":list(df.date),
+            "Confirmed":list(df.confirmed),
+            "Confirmed_Daily":list(df.confirmed_daily),
+            "Deceased":list(df.deaths),
+            "Deceased_Daily":list(df.deaths_daily),
+            "Recovered":list(df.recovered)
             }
     else:
         return "Try POST request"  
@@ -145,6 +132,30 @@ def get_tweets_by_ids():
             "id": {"$in":data['tweet_ids']}
         }))
         # response = list(db['tweets'].find({}))
+        print("response")
+        print(response)
+        cleaned_response = []
+        for obj in response:
+
+            obj['_id'] = str(obj['_id']) 
+            cleaned_response.append(obj)
+
+        
+        return {
+            "tweets": cleaned_response
+        }
+    else:
+        return "Try POST request"
+
+@app.route("/get_tweets_by_poi/", methods=['GET', 'POST'])
+def get_tweets_by_poi():
+    if request.method == "POST":
+        data = request.json
+        print(data)
+        response = list(db['tweets'].find({
+            "poi_name": data['poi_name']
+        }))
+        
         print("response")
         print(response)
         cleaned_response = []

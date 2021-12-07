@@ -43,6 +43,8 @@ export class OffChainServiceService {
     return this.httpClient.get(`${BASE_URL_BACKEND}/vaccinations?country=${country}&from_date=${from_date}&till_date=${till_date}`);
   }
 
+  // TODO: Hospitalizations Records.
+
 }
 
 
