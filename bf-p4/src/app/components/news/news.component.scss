@@ -1,0 +1,20 @@
+.example-card{
+    margin-bottom: 10px;
+    padding: 7px !important;
+    width: 450px;
+    border-radius: 25px;
+    :hover{
+        cursor: pointer;
+    }
+}
+mat-grid-tile{
+    border-radius: 25px;
+}
+.mat-card-image{
+    height: inherit;
+    margin: 10px;
+}
+.body{
+    overflow-y: auto;
+    height: 500px;
+}

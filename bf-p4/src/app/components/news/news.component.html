@@ -1,0 +1,24 @@
+<div class="body">
+    <div *ngFor="let news of newsArr">
+        <mat-card (click)="navigate(news.url)" class="example-card">
+            <mat-grid-list cols="2" rowHeight="2:1">
+                <mat-grid-tile rowspan="2">
+                    <img mat-card-image [src]="news.urlToImage">
+                </mat-grid-tile>
+                <mat-grid-tile rowspan="2">
+                    <mat-card-header>
+                        <mat-card-title>{{news.title}}</mat-card-title>
+                        <mat-card-subtitle>{{news.source.name}} | {{ news.publishedAt | date:'mediumDate'}}
+                        </mat-card-subtitle>
+                    </mat-card-header>
+                </mat-grid-tile>
+                <!-- <mat-card-content>
+                <span>
+                    {{news.description}}
+                </span>
+            </mat-card-content> -->
+                <!-- <mat-divider inset></mat-divider> -->
+            </mat-grid-list>
+        </mat-card>
+    </div>
+</div>

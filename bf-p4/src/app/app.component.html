@@ -1,23 +1,25 @@
 <div class="box">
-
+  <mat-toolbar>
+    <span>Team Brute Force</span>
+    <span class="example-spacer"></span>
+  </mat-toolbar>
   <mat-sidenav-container class="example-container">
-
-    <mat-sidenav fixedTopGap="50" fixedBottomGap="150" #sidenav disableClose="true" mode="side" position="start" opened
+    <mat-sidenav fixedTopGap="75" fixedBottomGap="150" #sidenav disableClose="true" mode="side" position="start" opened
       class="example-sidenav" fixedInViewport="true">
 
-      <div class="row">
-        <form [formGroup]="searchForm" class="example-form">
-          <mat-form-field appearance="fill">
-            <mat-label>Search</mat-label>
-            <mat-icon matPrefix>search</mat-icon>
-            <input (keydown.enter)="search()" type="text" matInput formControlName="searchFormControlName">
-            <button *ngIf="searchForm.value.searchFormControlName" matSuffix mat-icon-button aria-label="Search"
-              (click)="resetSearchBar()">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
-        </form>
-      </div>
+      <!-- <div class="row"> -->
+      <form [formGroup]="searchForm" class="example-form">
+        <mat-form-field appearance="fill">
+          <mat-label>Search</mat-label>
+          <mat-icon matPrefix>search</mat-icon>
+          <input (keydown.enter)="search()" type="text" matInput formControlName="searchFormControlName">
+          <button *ngIf="searchForm.value.searchFormControlName" matSuffix mat-icon-button aria-label="Search"
+            (click)="resetSearchBar()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+      <!-- </div> -->
     </mat-sidenav>
 
     <mat-sidenav-content class="example-sidenav-content">
@@ -25,10 +27,11 @@
 
     </mat-sidenav-content>
 
-    <mat-sidenav #sidenav [opened]="searchFlag" disableClose="true" mode="side" position="end" class="example-sidenav-2"
-      fixedInViewport="true">
-
-      <div class="row">
+    <mat-sidenav fixedTopGap="75" #sidenav opened disableClose="true" mode="side" position="end"
+      class="example-sidenav-2" fixedInViewport="true">
+      <div class = "cont">
+        <app-news class="child" [query]="_searchData"></app-news>
+        <span class="child">2</span>
       </div>
 
 
@@ -37,9 +40,7 @@
   </mat-sidenav-container>
   <div *ngIf="spinnerService.visibility | async" class="overlay">
     <div class="center">
-      <mat-spinner diameter="150" ></mat-spinner>
+      <mat-spinner diameter="150"></mat-spinner>
     </div>
   </div>
-
-
 </div>
