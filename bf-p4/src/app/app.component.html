@@ -4,8 +4,8 @@
     <span class="example-spacer"></span>
   </mat-toolbar>
   <mat-sidenav-container class="example-container">
-    <mat-sidenav fixedTopGap="75" fixedBottomGap="150" #sidenav disableClose="true" mode="side" position="start" opened
-      class="example-sidenav" fixedInViewport="true">
+    <mat-sidenav  fixedTopGap="75" fixedBottomGap="150" #sidenav disableClose="true" mode="side" position="start" opened
+      class="col-md-3 example-sidenav" fixedInViewport="true">
 
       <!-- <div class="row"> -->
       <form [formGroup]="searchForm" class="example-form">
@@ -22,16 +22,18 @@
       <!-- </div> -->
     </mat-sidenav>
 
-    <mat-sidenav-content class="example-sidenav-content">
+    <mat-sidenav-content class="col-md-5 example-sidenav-content">
       <app-search-results *ngIf="searchFlag" [tweets]=tweets></app-search-results>
 
     </mat-sidenav-content>
 
     <mat-sidenav fixedTopGap="75" #sidenav opened disableClose="true" mode="side" position="end"
-      class="example-sidenav-2" fixedInViewport="true">
-      <div class = "cont">
+      class="col-md-4 example-sidenav-2" fixedInViewport="true">
+      <div class="cont">
         <app-news class="child" [query]="_searchData"></app-news>
-        <span class="child">2</span>
+        <div class="child">
+          <app-sentiment-chart></app-sentiment-chart>
+        </div>
       </div>
 
 
