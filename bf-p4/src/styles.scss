@@ -17,3 +17,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import "~bootstrap/scss/grid";
 /* // Add the grid system */
 @import "styles/reset"; 
+
+::-webkit-scrollbar {
+    display: none;
+  }

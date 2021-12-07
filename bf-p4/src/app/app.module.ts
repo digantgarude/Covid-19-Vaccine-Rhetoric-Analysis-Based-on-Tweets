@@ -9,11 +9,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { SolrService } from './services/solr.service';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { NewsComponent } from './components/news/news.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,

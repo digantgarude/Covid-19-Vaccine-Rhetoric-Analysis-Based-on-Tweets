@@ -1,7 +1,7 @@
 <!-- <cdk-virtual-scroll-viewport class="list-container" itemSize="50" minBufferPx="1200" maxBufferPx="1200"> -->
     <div class="card-container">
-        <div *ngFor="let tweet of tweets" class="row example-card">
-            <mat-card class="example-card">
+        <div *ngFor="let tweet of tweets" class="example-card">
+            <mat-card *ngIf = "!tweet.replied_to_user_id" class="row example-card">
                 <mat-card-header>
                     <div mat-card-avatar class="example-header-image"></div>
                     <mat-card-title>{{tweet.user ? tweet.user.name: "Narendra Modi"}}</mat-card-title>

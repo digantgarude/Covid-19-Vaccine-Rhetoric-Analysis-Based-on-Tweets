@@ -99,8 +99,6 @@ export class ChartsCountryCovidComponent implements OnInit {
                 name: 'Daily Confirmed',
                 type: 'column',
                 yAxis: 0,
-                borderRadiusTopLeft: '20px',
-                borderRadiusTopRight: '20px',
                 data: data.Confirmed_Daily,
                 color: this.column_color,
                 marker:false
