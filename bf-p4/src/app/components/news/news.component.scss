@@ -1,6 +1,6 @@
 .example-card{
-    margin-bottom: 5px;
-    padding: 7px !important;
+    margin-bottom: 1%;
+    padding: 2% !important;
     // width: 450px;
     width: inherit;
     
@@ -17,7 +17,6 @@ mat-grid-tile{
     word-wrap: break-word;
   }
 .mat-card-image{
-    object-fit: cover;
     height: inherit;
     // margin: 10px;
     border-radius: 50px;

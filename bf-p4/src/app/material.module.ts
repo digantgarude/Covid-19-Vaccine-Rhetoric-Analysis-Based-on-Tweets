@@ -90,6 +90,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatRippleModule,
     MatGridListModule,
     MatInputModule,
+    MatPaginatorModule,
     // OverlayModule,
     MatTreeModule,
     MatNativeDateModule,
