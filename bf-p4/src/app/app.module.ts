@@ -11,13 +11,19 @@ import { SearchResultsComponent } from './components/search-results/search-resul
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NewsComponent } from './components/news/news.component';
 import { SentimentChartComponent } from './components/sentiment-chart/sentiment-chart.component';
+import { QuerySearchComponent } from './components/query-search/query-search.component';
+import { QueryAnalyticsComponent } from './components/query-analytics/query-analytics.component';
+import { CorpusAnalyticsComponent } from './components/corpus-analytics/corpus-analytics.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchResultsComponent,
     NewsComponent,
-    SentimentChartComponent
+    SentimentChartComponent,
+    QuerySearchComponent,
+    QueryAnalyticsComponent,
+    CorpusAnalyticsComponent
   ],
   imports: [
     BrowserModule,
