@@ -14,6 +14,7 @@ import { VaccinationsChartComponent } from './vaccinations-chart/vaccinations-ch
 import { CovidDeathsCountryChartComponent } from './covid-deaths-country-chart/covid-deaths-country-chart.component';
 import { HospitalizationsChartComponent } from './hospitalizations-chart/hospitalizations-chart.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { WordCloudChartComponent } from './word-cloud-chart/word-cloud-chart.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
     SentimentPieChartComponent,
     VaccinationsChartComponent,
     CovidDeathsCountryChartComponent,
-    HospitalizationsChartComponent
+    HospitalizationsChartComponent,
+    WordCloudChartComponent
   ],
   imports: [
     BrowserModule,

@@ -2,10 +2,8 @@
 <mat-form-field appearance="fill">
     <mat-label>Select from {{len_poi}} POIs</mat-label>
     <mat-select (selectionChange)="selectedValue($event)">
-        <mat-optgroup *ngFor="let group of pokemonGroups" [label]="group.name">
-            <mat-option *ngFor="let poi of poi_names" [value]="poi">
-            {{poi}}
-            </mat-option>
-        </mat-optgroup>
+        <mat-option *ngFor="let poi of poi_names" [value]="poi">
+        {{poi}}
+        </mat-option>
     </mat-select>
 </mat-form-field>
