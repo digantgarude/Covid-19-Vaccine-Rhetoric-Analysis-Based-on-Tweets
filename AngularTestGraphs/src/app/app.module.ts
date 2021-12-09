@@ -12,6 +12,9 @@ import { MaterialModule } from './material.module';
 import { SentimentPieChartComponent } from './sentiment-pie-chart/sentiment-pie-chart.component';
 import { VaccinationsChartComponent } from './vaccinations-chart/vaccinations-chart.component';
 import { CovidDeathsCountryChartComponent } from './covid-deaths-country-chart/covid-deaths-country-chart.component';
+import { HospitalizationsChartComponent } from './hospitalizations-chart/hospitalizations-chart.component';
+import { HighchartsChartModule } from 'highcharts-angular';
+import { WordCloudChartComponent } from './word-cloud-chart/word-cloud-chart.component';
 
 
 @NgModule({
@@ -20,7 +23,9 @@ import { CovidDeathsCountryChartComponent } from './covid-deaths-country-chart/c
     ChartsCountryCovidComponent,
     SentimentPieChartComponent,
     VaccinationsChartComponent,
-    CovidDeathsCountryChartComponent
+    CovidDeathsCountryChartComponent,
+    HospitalizationsChartComponent,
+    WordCloudChartComponent
   ],
   imports: [
     BrowserModule,
@@ -28,12 +33,13 @@ import { CovidDeathsCountryChartComponent } from './covid-deaths-country-chart/c
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
+    HighchartsChartModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

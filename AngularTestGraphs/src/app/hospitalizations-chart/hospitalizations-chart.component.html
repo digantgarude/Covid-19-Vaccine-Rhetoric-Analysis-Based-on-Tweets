@@ -1,0 +1,18 @@
+<highcharts-chart 
+id="us-hospitalizations-by-date-container" 
+style="width:100%;"
+[Highcharts]="Highcharts"
+[constructorType]="chartConstructor"
+[options]="chartOptions"
+></highcharts-chart>
+
+<mat-form-field appearance="fill">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="Start date">
+        <input matEndDate formControlName="end" placeholder="End date" (dateChange)="renderChart($event)">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
+<p><b>Selected range: </b>{{range.value | json}}</p>

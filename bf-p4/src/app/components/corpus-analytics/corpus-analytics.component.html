@@ -1,1 +1,69 @@
-<p>corpus-analytics works!</p>
+<mat-tab-group>
+
+<!-- FIRST TAB -->
+<mat-tab label="Overall Corpus Analytics">
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <br>
+            <app-overall-sentiment></app-overall-sentiment>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <br>
+            <h3>Data :</h3>
+            <h4>Out of the total 2,31,110 tweets collected. Following are  the sentiment scores obtained over the entire corpus after running them through AWS Comprehend.</h4>
+            <p>Positive : 32574</p>
+            <p>Negative : 54124</p>
+            <p>Neutral : 135416</p>
+            <p>Mixed : 8996</p>
+        </div>
+    </div>
+</div>
+</mat-tab>
+
+<!-- SECOND TAB -->
+<mat-tab label="POI Sentiment Analysis">
+<ng-template matTabContent>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <br>
+            <app-poi-sentiment></app-poi-sentiment>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <br>
+            <h3>Analysis</h3>
+            <h4>A general level analysis from the charts reveals that official Sources of covid and vaccine information like CDCgov and MoHFW_INDIA have more number of neutral tweets as they only tweeted factual information which is delivered in a straight tone.</h4>
+            <h4>Another difference that is evident is that politicians have a mix of positive, negative and neutral tweets based on their persona and whether they critque / find flaws in the existing system.</h4>
+        </div>
+    </div>
+</div>
+</ng-template>
+</mat-tab>
+
+
+<!-- THIRD TAB -->
+<mat-tab label="Country wise Sentiment Analysis">
+    <ng-template matTabContent>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <br>
+                    <app-countrywise-sentiment></app-countrywise-sentiment>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <br>
+                    <h3>Analysis</h3>
+                    <!-- <h4>A general level analysis from the charts reveals that official Sources of covid and vaccine information like CDCgov and MoHFW_INDIA have more number of neutral tweets as they only tweeted factual information which is delivered in a straight tone.</h4>
+                    <h4>Another difference that is evident is that politicians have a mix of positive, negative and neutral tweets based on their persona and whether they critque / find flaws in the existing system.</h4> -->
+                </div>
+            </div>
+        </div>
+        </ng-template>
+</mat-tab>
+
+</mat-tab-group>
+  
+<!-- TAB GROUP ENDS -->
+
+

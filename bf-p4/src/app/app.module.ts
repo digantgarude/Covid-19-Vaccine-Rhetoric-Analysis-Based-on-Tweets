@@ -14,6 +14,10 @@ import { SentimentChartComponent } from './components/sentiment-chart/sentiment-
 import { QuerySearchComponent } from './components/query-search/query-search.component';
 import { QueryAnalyticsComponent } from './components/query-analytics/query-analytics.component';
 import { CorpusAnalyticsComponent } from './components/corpus-analytics/corpus-analytics.component';
+import { OverallSentimentComponent } from './components/corpus-analytics/components/overall-sentiment/overall-sentiment.component';
+import { PoiSentimentComponent } from './components/corpus-analytics/components/poi-sentiment/poi-sentiment.component';
+import { CountrywiseSentimentComponent } from './components/corpus-analytics/components/countrywise-sentiment/countrywise-sentiment.component';
+import { CorpusWordcloudComponent } from './components/corpus-analytics/components/corpus-wordcloud/corpus-wordcloud.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import { CorpusAnalyticsComponent } from './components/corpus-analytics/corpus-a
     SentimentChartComponent,
     QuerySearchComponent,
     QueryAnalyticsComponent,
-    CorpusAnalyticsComponent
+    CorpusAnalyticsComponent,
+    OverallSentimentComponent,
+    PoiSentimentComponent,
+    CountrywiseSentimentComponent,
+    CorpusWordcloudComponent
   ],
   imports: [
     BrowserModule,
