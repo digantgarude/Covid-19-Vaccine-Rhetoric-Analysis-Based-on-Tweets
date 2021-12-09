@@ -1,7 +1,7 @@
 <div class="body">
     <div *ngFor="let news of newsArr">
         <mat-card (click)="navigate(news.url)" class="example-card">
-            <mat-grid-list cols="2" rowHeight="3:1">
+            <mat-grid-list cols="2" rowHeight="4:1">
                 <mat-grid-tile rowspan="2">
                     <img mat-card-image [src]="news.urlToImage">
                 </mat-grid-tile>
