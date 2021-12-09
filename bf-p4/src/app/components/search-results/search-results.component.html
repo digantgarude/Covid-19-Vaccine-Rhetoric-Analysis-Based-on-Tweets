@@ -1,10 +1,14 @@
 <div class="scroll-container">
-    <cdk-virtual-scroll-viewport appendOnly itemSize="7" class="col-md-5 card-container">
+    <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="col-md-5 card-container">
         <div *cdkVirtualFor="let tweet of tweets" class="card-cont">
             <mat-card class="row example-card">
                 <mat-card-header>
                     <div mat-card-avatar class="example-header-image"></div>
-                    <mat-card-title *ngIf="allTweets[tweet.id].poi_id">{{allTweets[tweet.id].poi_name}}
+                    <mat-card-title >{{allTweets[tweet.id].poi_id? allTweets[tweet.id].poi_name: "Twitter User"}}
+                        <mat-icon *ngIf="allTweets[tweet.id].poi_id" class="verified-icon"> verified</mat-icon>
+                        <span *ngIf="allTweets[tweet.id].sentiment == 'NEUTRAL'" class="sentiment-icon"> 😐</span>
+                        <span *ngIf="allTweets[tweet.id].sentiment == 'NEGATIVE'" class="sentiment-icon"> 😟</span>
+                        <span *ngIf="allTweets[tweet.id].sentiment == 'POSITIVE'" class="sentiment-icon"> 😃  </span>
                     </mat-card-title>
                     <mat-card-subtitle>{{allTweets[tweet.id].tweet_date| date}}</mat-card-subtitle>
                 </mat-card-header>

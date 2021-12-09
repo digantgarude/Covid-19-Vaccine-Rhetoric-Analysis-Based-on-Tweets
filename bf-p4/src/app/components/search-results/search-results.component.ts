@@ -20,6 +20,7 @@ export class SearchResultsComponent implements OnInit {
 
   allTweets: any = [];
   processedTweets: any = [];
+  positive_emoji="&#128515;";
 
   constructor(private linkPreview: LinkPreviewService, public solrSearch: SolrService, private spinnerService: SpinnerService,
     private changeDetectorRef: ChangeDetectorRef) { }

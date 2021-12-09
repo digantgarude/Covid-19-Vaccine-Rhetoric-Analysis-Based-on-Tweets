@@ -22,7 +22,8 @@ export class SentimentChartComponent implements OnInit {
         plotBorderWidth: null,
         plotShadow: false,
         type: 'pie',
-        zoomType: 'xy'
+        zoomType: 'xy',
+        height:350
       },
       title: {
         text: 'Result Sentiment Scores',

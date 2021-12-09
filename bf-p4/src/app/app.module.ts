@@ -31,7 +31,8 @@ import { CorpusAnalyticsComponent } from './components/corpus-analytics/corpus-a
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    ScrollingModule
+    ScrollingModule,
+    
   ],
   providers: [SolrService],
   bootstrap: [AppComponent]
