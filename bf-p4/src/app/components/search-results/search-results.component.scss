@@ -1,7 +1,7 @@
 .example-card {
     // margin-bottom: 8px;
     margin: 2%;
-    padding: 5%
+    padding: 2%
   }
   
   .card-cont{
@@ -24,4 +24,15 @@
   .example-header-image {
     background-image: url('../../../assets/twitter.png');
     background-size: cover;
+  }
+  .verified-icon{
+    color: dodgerblue;
+  }
+
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  .sentiment-icon{
+    position: fixed;
+    right: 5%;
   }
