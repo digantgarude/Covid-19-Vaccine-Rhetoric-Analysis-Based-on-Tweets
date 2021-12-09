@@ -1,9 +1,8 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
+import { CorpusAnalyticsService } from 'src/app/services/corpus-analytics.service';
+import {Component,OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import * as Exporting from 'highcharts/modules/exporting';
+import { delay } from 'rxjs';
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
@@ -20,22 +19,17 @@ Boost(Highcharts);
   styleUrls: ['./corpus-wordcloud.component.scss']
 })
 export class CorpusWordcloudComponent implements OnInit {
-
-
   public column_color: String = "#aae479";
   // public line_color:String = "#4895ef";
   public line_color: String = "#4c4c4c";
 
-
-
-
-
   public options: any = {};
-  constructor() {
+  constructor(private corpusService:CorpusAnalyticsService) {
+  // constructor() {
 
   }
 
-  async dataFill(data: any) {
+  dataFill(data: any) {
     this.options = {
       accessibility: {
         screenReaderSection: {
@@ -57,17 +51,13 @@ export class CorpusWordcloudComponent implements OnInit {
   }
 
   async renderChart() {
-    // this.offChainService.getWordCloud()
-    // .subscribe(async (data:any) => {
-    await this.dataFill([{
-      name: "hello",
-      weight: 1
-    }, {
-      name: "world",
-      weight: 4
-    }])
+    // let data = this.corpusService.sentiment_corpus_data;
+    let data = await this.corpusService.getCorpusWordCloud();
+    // let data = this.corpusService.sentiment_corpus_data.hashtags_word_cloud_corpus;
+    console.log("WORD CLOUD DATA RECIEVE")
+    console.log(data)
+    this.dataFill(data.slice(0,50));
     Highcharts.chart('word-cloud-container', this.options);
-    // })
   }
 
   ngOnInit() {
