@@ -31,6 +31,13 @@ url_world = "https://pomber.github.io/covid19/timeseries.json"
 res_world_count = requests.get(url_world).json()
 
 # ============================================================================
+
+# Hospitalization Data
+df_hospitalization_us = pd.read_csv("./Datasets/COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries.csv")
+df_hospitalization_us["date"] = pd.to_datetime(df_hospitalization_us["date"], format='%Y/%m/%d')
+
+
+# ============================================================================
 # Vaccinations Data By Country
 vaccinations_india_df = pd.read_csv("./Datasets/Vaccinations/India.csv")
 vaccinations_usa_df = pd.read_csv("./Datasets/Vaccinations/United_States.csv")
@@ -47,7 +54,7 @@ vaccinations_mexico_df["date"] = pd.to_datetime(vaccinations_mexico_df["date"], 
 
 # ============================= CODE BELOW THIS =============================
 
-
+# ! CHART API
 @app.route("/vaccinations/", methods=['GET', 'POST'])
 def get_country_vaccinations():
     if request.method == "GET":
@@ -84,6 +91,7 @@ def get_country_vaccinations():
     else:
         return "Try POST request"   
 
+# ! CHART API
 @app.route("/country/", methods=['GET', 'POST'])
 def get_country_cases():
     if request.method == "GET":
@@ -169,7 +177,26 @@ def get_tweets_by_poi():
             "tweets": cleaned_response
         }
     else:
-        return "Try POST request"   
+        return "Try POST request"  
+
+# ! CHART API
+@app.route("/get_hospitalizations_data/", methods=['GET', 'POST'])
+def get_hospitalizations_data():
+    if request.method == "GET":
+        from_date = request.args.get("from_date")
+        till_date = request.args.get("till_date")
+        df = df_utils.get_between_dates(df_hospitalization_us, "date", from_date, till_date)
+        grouped_data_us = df.groupby("state", axis = 0).sum()
+        data = {
+            "state": list(grouped_data_us.index)
+        }
+        data_points = ['hospital_onset_covid','inpatient_beds','inpatient_beds_used','inpatient_beds_used_covid','staffed_adult_icu_bed_occupancy','staffed_icu_adult_patients_confirmed_and_suspected_covid','staffed_icu_adult_patients_confirmed_covid','total_adult_patients_hospitalized_confirmed_and_suspected_covid','total_adult_patients_hospitalized_confirmed_covid','total_pediatric_patients_hospitalized_confirmed_and_suspected_covid','total_pediatric_patients_hospitalized_confirmed_covid','total_staffed_adult_icu_beds','inpatient_beds_utilization','percent_of_inpatients_with_covid','inpatient_bed_covid_utilization','adult_icu_bed_covid_utilization','adult_icu_bed_utilization','geocoded_state','deaths_covid','icu_patients_confirmed_influenza','total_patients_hospitalized_confirmed_influenza','total_patients_hospitalized_confirmed_influenza_and_covid']
+
+        for point in data_points:
+            data[point] = list(grouped_data_us[point])
+        return data
+    else:
+        return "Try GET request"   
 
 
 if __name__ == "__main__":
