@@ -45,6 +45,18 @@ export class OffChainServiceService {
 
   // TODO: Hospitalizations Records.
 
+  /**
+   * 
+   * @param country {"US", "India", "Mexico"}
+   * @param from_date "YYYY-MM-DD"
+   * @param till_date "YYYY-MM-DD" OR DEFAULT {from_date + 14 days}
+   * @returns response
+   */
+  public getHospitalizationsUS(from_date:String, till_date:String){
+    return this.httpClient.get(`${BASE_URL_BACKEND}get_hospitalizations_data?from_date=${from_date}&till_date=${till_date}`);
+  }
+
+
 }
 
 
