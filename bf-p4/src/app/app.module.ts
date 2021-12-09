@@ -39,7 +39,8 @@ import { CorpusWordcloudComponent } from './components/corpus-analytics/componen
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    ScrollingModule
+    ScrollingModule,
+    
   ],
   providers: [SolrService],
   bootstrap: [AppComponent]
