@@ -9,6 +9,7 @@
                         <span *ngIf="allTweets[tweet.id].sentiment == 'NEUTRAL'" class="sentiment-icon"> 😐</span>
                         <span *ngIf="allTweets[tweet.id].sentiment == 'NEGATIVE'" class="sentiment-icon"> 😟</span>
                         <span *ngIf="allTweets[tweet.id].sentiment == 'POSITIVE'" class="sentiment-icon"> 😃  </span>
+                        <span *ngIf="allTweets[tweet.id].sentiment == 'MIXED'" class="sentiment-icon"> 🤷  </span>
                     </mat-card-title>
                     <mat-card-subtitle>{{allTweets[tweet.id].tweet_date| date}}</mat-card-subtitle>
                 </mat-card-header>
