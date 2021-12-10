@@ -17,6 +17,7 @@ export class QuerySearchComponent implements OnInit {
   fromDate: string = '';
   toDate: string = '';
   _searchData: any;
+  rawTweets: any;
   public get searchData(): any {
     return this._searchData;
   }
@@ -25,9 +26,10 @@ export class QuerySearchComponent implements OnInit {
   }
   dates: any = [];
   newsData: any = {};
-  poi_names = ['ArvindKejriwal','BernieSanders','CDCgov','Claudiashein','EnriqueAlfaroR','GovRonDeSantis','GregAbbott_TX','HHS_ASH','HLGatell','JoeBiden','KamalaHarris','LindseyGrahamSC','MamataOfficial','MoHFW_INDIA','POTUS','PeteButtigieg','RahulGandhi','RandPaul','RicardoMonrealA','SSalud_mx','SecBecerra','SenSanders','VP','VicenteFoxQue','alfredodelmazo','alitomorenoc','amyklobuchar','fernandeznorona','lopezobrador_','m_ebrard','mansukhmandviya','marcorubio','mattgaetz','mtgreenee','narendramodi','sambitswaraj','tatclouthier','tedcruz'];
+  poi_names = ['ArvindKejriwal', 'BernieSanders', 'CDCgov', 'Claudiashein', 'EnriqueAlfaroR', 'GovRonDeSantis', 'GregAbbott_TX', 'HHS_ASH', 'HLGatell', 'JoeBiden', 'KamalaHarris', 'LindseyGrahamSC', 'MamataOfficial', 'MoHFW_INDIA', 'POTUS', 'PeteButtigieg', 'RahulGandhi', 'RandPaul', 'RicardoMonrealA', 'SSalud_mx', 'SecBecerra', 'SenSanders', 'VP', 'VicenteFoxQue', 'alfredodelmazo', 'alitomorenoc', 'amyklobuchar', 'fernandeznorona', 'lopezobrador_', 'm_ebrard', 'mansukhmandviya', 'marcorubio', 'mattgaetz', 'mtgreenee', 'narendramodi', 'sambitswaraj', 'tatclouthier', 'tedcruz'];
   countries = ['INDIA', 'USA', 'MEXICO'];
-  sentiments = ['POSITIVE','NEGATIVE', 'NEUTRAL', 'MIXED']
+  sentiments = ['POSITIVE', 'NEGATIVE', 'NEUTRAL', 'MIXED'];
+  languages = ['HINDI', 'ENGLISH', 'SPANISH'];
   constructor(private fb: FormBuilder, private solrService: SolrService, public spinnerService: SpinnerService, private changeDetectorRef: ChangeDetectorRef) {
   }
 
@@ -39,7 +41,8 @@ export class QuerySearchComponent implements OnInit {
       poiOnly: [false],
       poiFilter: [''],
       countryFilter: [''],
-      sentimentFilter: ['']
+      sentimentFilter: [''],
+      languageFilter: ['']
     });
     this.allTweets = this.solrService.processed_tweets;
   }
@@ -64,6 +67,7 @@ export class QuerySearchComponent implements OnInit {
       }
       this.solrService.simpleQuerySolr(formVal.searchFormControlName, queryOptions).subscribe(async (data: any) => {
         await this.mapTweets(data.response.docs);
+        this.rawTweets = this.tweets;
         this.solrService._searchData.next(data.response.docs);
         console.log(data.response.docs);
         const query = {
@@ -92,6 +96,22 @@ export class QuerySearchComponent implements OnInit {
     if (Object.keys(this.allTweets).length == 0) {
       this.allTweets = this.solrService.processed_tweets;
     }
+  }
+
+  async filterByPoiName(poiName: string) {
+    // this.tweets.filter(tw=> tw.)
+  }
+
+  async searchFilter() {
+    console.log('here');
+    console.log(this.searchForm.value);
+    if (this.searchFlag) {
+
+    }
+  }
+
+  searchPoiTweets() {
+
   }
 
 
