@@ -45,7 +45,7 @@ export class CorpusWordcloudComponent implements OnInit {
         name: 'Occurrences'
       }],
       title: {
-        text: 'Wordcloud of Number of hashtags in  corpus'
+        text: 'Corpus Hashtag Analytics'
       }
     };
   }

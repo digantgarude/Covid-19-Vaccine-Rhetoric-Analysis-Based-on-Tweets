@@ -18,10 +18,12 @@
                         <p>Mixed : 8996</p>
                     </div>
                 </div>
-                <div>
-                    <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
                         <app-corpus-wordcloud></app-corpus-wordcloud>
                     </div>
+                    <div class="col-md-1"></div>
                 </div>
             </div>
         </mat-tab>
@@ -31,7 +33,16 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <br>
-                            <app-poi-sentiment></app-poi-sentiment>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select from {{len_poi}} POIs</mat-label>
+                                <mat-select (selectionChange)="selectedValue($event)">
+                                    <mat-option *ngFor="let poi of poi_names" [value]="poi">
+                                    {{poi}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            
+                            <app-poi-sentiment [selected_poi]="selected_poi"></app-poi-sentiment>
                         </div>
                         <div class="col-md-6 col-sm-6">
                             <br>
@@ -53,7 +64,15 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <br>
-                            <app-countrywise-sentiment></app-countrywise-sentiment>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select from {{len_countries}} countries.</mat-label>
+                                <mat-select (selectionChange)="selectedCountryValue($event)">
+                                  <mat-option *ngFor="let country of countries" [value]="country">
+                                    {{country}}
+                                  </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <app-countrywise-sentiment [selected_country]="selected_country"></app-countrywise-sentiment>
                         </div>
                         <div class="col-md-6 col-sm-6">
                             <br>
