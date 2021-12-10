@@ -96,7 +96,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatNativeDateModule,
     MatFormFieldModule,
     MatTabsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSlideToggleModule
   ]
 })
 export class MaterialModule { }

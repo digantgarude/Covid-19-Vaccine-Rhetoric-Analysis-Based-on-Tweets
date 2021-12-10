@@ -36,6 +36,17 @@
         overflow-y: scroll !important;
       }
     }
+
+    .example-section {
+      display: flex;
+      align-content: center;
+      align-items: center;
+      height: 60px;
+    }
+    
+    .example-margin {
+      margin: 10px;
+    }
   
   // .search-bar{
   //     margin-left: 100px;
@@ -83,6 +94,10 @@
     //     background-color: transparent;
     // }
 
+    .example-form{
+      color: white;
+    }
+
     .divider{
         margin-top: 2px;
         margin-bottom: 2px;
@@ -107,3 +122,10 @@
           font-family: cursive;
           font-size: x-large;
       }
+
+      :host ::ng-deep  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+        background-color: white ;
+    }
+    :host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+      background-color: sandybrown ;
+  }

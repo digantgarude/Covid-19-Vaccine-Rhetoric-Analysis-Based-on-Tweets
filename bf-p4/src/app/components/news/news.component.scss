@@ -14,7 +14,8 @@ mat-grid-tile{
 }
 
 .mat-card-content{
-    word-wrap: break-word;
+    word-break: break-all;
+    margin-top: 2%;
   }
 .mat-card-image{
     height: inherit;
