@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import * as Exporting from 'highcharts/modules/exporting';
 declare var require: any;
@@ -18,17 +18,16 @@ import { CorpusAnalyticsService } from 'src/app/services/corpus-analytics.servic
 })
 export class CountrywiseSentimentComponent implements OnInit {
 
-  public selected_country:any;
-  countries = ["USA", "India", "Mexico"]
-  len_countries:any  = this.countries.length;
+  @Input() selected_country:string="";
   public column_color:String = "#4895ef";
   // public line_color:String = "#e63946";
   public line_color:String = "#4c4c4c";
   
-  selectedValue(event: MatSelectChange) {
-    this.selected_country = event.value;
-    console.log(this.selected_country);
-    this.renderChart();
+  async ngOnChanges(changes:SimpleChanges){
+    console.log(changes)
+    if(this.selected_country.length > 0){
+      await this.renderChart();
+    }
   }
   
   public options:any = {};
