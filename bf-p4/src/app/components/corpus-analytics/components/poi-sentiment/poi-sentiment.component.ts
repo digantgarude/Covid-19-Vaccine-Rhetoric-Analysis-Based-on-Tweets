@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import * as Exporting from 'highcharts/modules/exporting';
 declare var require: any;
@@ -18,22 +18,26 @@ import { CorpusAnalyticsService } from 'src/app/services/corpus-analytics.servic
   styleUrls: ['./poi-sentiment.component.scss']
 })
 export class PoiSentimentComponent implements OnInit {
-  public selected_poi:any;
+  
+  
+  @Input() selected_poi:string = '';
   poi_names = ['ArvindKejriwal','BernieSanders','CDCgov','Claudiashein','EnriqueAlfaroR','GovRonDeSantis','GregAbbott_TX','HHS_ASH','HLGatell','JoeBiden','KamalaHarris','LindseyGrahamSC','MamataOfficial','MoHFW_INDIA','POTUS','PeteButtigieg','RahulGandhi','RandPaul','RicardoMonrealA','SSalud_mx','SecBecerra','SenSanders','VP','VicenteFoxQue','alfredodelmazo','alitomorenoc','amyklobuchar','fernandeznorona','lopezobrador_','m_ebrard','mansukhmandviya','marcorubio','mattgaetz','mtgreenee','narendramodi','sambitswaraj','tatclouthier','tedcruz']
   len_poi:any  = this.poi_names.length;
   public column_color:String = "#4895ef";
   // public line_color:String = "#e63946";
   public line_color:String = "#4c4c4c";
   
-  selectedValue(event: MatSelectChange) {
-    this.selected_poi = event.value;
-    console.log(this.selected_poi);
-    this.renderChart();
-  }
   
   public options:any = {};
   constructor(private corpusService:CorpusAnalyticsService) {}
   
+  async ngOnChanges(changes:SimpleChanges){
+    console.log(changes)
+    if(this.selected_poi.length > 0){
+      await this.renderChart();
+    }
+  }
+
   async dataFill(data:any){
     this.options = {
       chart: {
@@ -105,8 +109,8 @@ export class PoiSentimentComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.selected_poi = "narendramodi";
-    this.renderChart()
+    // this.selected_poi = "narendramodi";
+    // this.renderChart()
   }
 
 
