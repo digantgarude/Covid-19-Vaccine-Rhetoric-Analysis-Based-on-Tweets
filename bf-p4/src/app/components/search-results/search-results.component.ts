@@ -26,23 +26,15 @@ export class SearchResultsComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    // this.linkPreview.getLinkPreview("https://www.google.com").subscribe((data) => {
-    //   console.log(data);
-    // });
-    // this.spinnerService.hide();
     this.allTweets = this.solrSearch.processed_tweets;
-    console.log(this.tweets);
     this.dataSource = new MatTableDataSource(this.tweets);
     this.tweets.paginator = this.paginator
     this.obs = this.tweets.connect();
-    // this.obs = this.tweets.connect();
   }
 
   ngOnChanges() {
     this.dataSource.data = this.tweets;
     window.scrollTo(0,0); 
-    // this.dataSource.data.push(this.tweets);
-    // this.obs = this.dataSource.connect();
   }
 
 
