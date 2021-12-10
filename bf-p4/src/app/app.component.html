@@ -3,7 +3,7 @@
     <span>Team Brute Force</span>
     <span class="example-spacer"></span>
     <button *ngIf="solrService._searchFlag | async" [routerLink]="['analyzeSearch']" mat-stroked-button>View Search Analytics</button>
-    <button mat-stroked-button>View Corpus Analytics</button>
+    <button [routerLink]="['analyzeCorpus']" mat-stroked-button>View Corpus Analytics</button>
   </mat-toolbar>
   <router-outlet></router-outlet>
   <div *ngIf="spinnerService.visibility | async" class="overlay">

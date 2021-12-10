@@ -25,7 +25,9 @@ export class QuerySearchComponent implements OnInit {
   }
   dates: any = [];
   newsData: any = {};
-
+  poi_names = ['ArvindKejriwal','BernieSanders','CDCgov','Claudiashein','EnriqueAlfaroR','GovRonDeSantis','GregAbbott_TX','HHS_ASH','HLGatell','JoeBiden','KamalaHarris','LindseyGrahamSC','MamataOfficial','MoHFW_INDIA','POTUS','PeteButtigieg','RahulGandhi','RandPaul','RicardoMonrealA','SSalud_mx','SecBecerra','SenSanders','VP','VicenteFoxQue','alfredodelmazo','alitomorenoc','amyklobuchar','fernandeznorona','lopezobrador_','m_ebrard','mansukhmandviya','marcorubio','mattgaetz','mtgreenee','narendramodi','sambitswaraj','tatclouthier','tedcruz'];
+  countries = ['INDIA', 'USA', 'MEXICO'];
+  sentiments = ['POSITIVE','NEGATIVE', 'NEUTRAL', 'MIXED']
   constructor(private fb: FormBuilder, private solrService: SolrService, public spinnerService: SpinnerService, private changeDetectorRef: ChangeDetectorRef) {
   }
 
@@ -34,11 +36,15 @@ export class QuerySearchComponent implements OnInit {
   ngOnInit() {
     this.searchForm = this.fb.group({
       searchFormControlName: ['', Validators.compose([Validators.required])],
+      poiOnly: [false],
+      poiFilter: [''],
+      countryFilter: [''],
+      sentimentFilter: ['']
     });
     this.allTweets = this.solrService.processed_tweets;
   }
 
-  resetSearchBar() {
+  resetSearchBar(event: any) {
     this.searchForm.reset();
   }
 
@@ -47,15 +53,19 @@ export class QuerySearchComponent implements OnInit {
 
     await this.getRawTweets();
     const formVal = this.searchForm.value;
-    console.log(formVal.value);
+    console.log(formVal);
     if (this.searchForm.valid) {
       this.solrService._searchFlag.next(true)
       this.searchFlag = true;
       this.spinnerService.show();
-      this.solrService.simpleQuerySolr(formVal.searchFormControlName, { noReplies: true }).subscribe(async (data: any) => {
+      let queryOptions: any = {
+        noReplies: true,
+        allPoisOnly: formVal.poiOnly
+      }
+      this.solrService.simpleQuerySolr(formVal.searchFormControlName, queryOptions).subscribe(async (data: any) => {
         await this.mapTweets(data.response.docs);
         this.solrService._searchData.next(data.response.docs);
-        console.log(this.dates);
+        console.log(data.response.docs);
         const query = {
           query: formVal.searchFormControlName,
           fromDate: await Math.max(...this.dates),
@@ -84,6 +94,6 @@ export class QuerySearchComponent implements OnInit {
     }
   }
 
-  
+
 
 }

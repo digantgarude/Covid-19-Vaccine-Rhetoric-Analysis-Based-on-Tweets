@@ -30,7 +30,7 @@ export class NewsComponent implements OnInit {
       const toDate = new Date(this.query.toDate).toISOString().split('T')[0];
       this.query.query =this.query.query.trim();
       this.query.query = this.query.query.replace(" ", " AND ");
-      this.newsArr = await this.newsService.getNews(encodeURI(this.query.query), fromDate, toDate).toPromise();
+      this.newsArr = await this.newsService.getNews(encodeURI(this.query.query), '', '').toPromise();
       this.newsArr = this.newsArr.articles;
       console.log(this.newsArr);
     }
