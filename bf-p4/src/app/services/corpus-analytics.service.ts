@@ -7,12 +7,23 @@ import { SpinnerService } from './spinner.service';
 export class CorpusAnalyticsService {
   public sentiment_corpus_data:any;
   constructor(private httpClient: HttpClient, private spinnerService: SpinnerService) {
-    this.httpClient.get("assets/sentiment_corpus.json").subscribe((data) => {
+    this.httpClient.get("assets/sentiment_corpus.json").toPromise().then((data:any) => {
       this.sentiment_corpus_data = data;
       this.spinnerService.hide();
       console.log(Object.keys(data).length);
       console.log(data);
+      console.log(data.hashtags_word_cloud_corpus);
     });
+  }
+  
+  public async getCorpusWordCloud(){
+    if(this.sentiment_corpus_data){
+      return this.sentiment_corpus_data.hashtags_word_cloud_corpus;
+    }else{
+      this.sentiment_corpus_data = await this.httpClient.get("assets/sentiment_corpus.json").toPromise();
+      this.spinnerService.hide();
+      return this.sentiment_corpus_data.hashtags_word_cloud_corpus;
+    }
   }
 
   public async getPOISentiment(poi_name:any){
