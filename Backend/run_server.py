@@ -140,8 +140,8 @@ def get_tweets_by_ids():
             "id": {"$in":data['tweet_ids']}
         }))
         # response = list(db['tweets'].find({}))
-        print("response")
-        print(response)
+        # print("response")
+        # print(response)
         cleaned_response = []
         for obj in response:
 
@@ -150,10 +150,42 @@ def get_tweets_by_ids():
 
         
         return {
-            "tweets": cleaned_response
+            "tweets": cleaned_response,
+            "sentiments": get_sentiments_by_tweets_ids(data['tweet_ids'])
         }
     else:
         return "Try POST request"
+
+
+def get_sentiments_by_tweets_ids(tweet_ids):
+    response = list(db['tweets'].aggregate([
+        {
+            '$match': {
+                'id': {
+                    '$in': tweet_ids
+                }
+            }
+        }, {
+            '$group': {
+                '_id': '$sentiment', 
+                'count': {
+                    '$sum': 1
+                }
+            }
+        }
+    ]))
+
+    res = {
+        "POSITIVE": 0,
+        "NEGATIVE": 0,
+        "NEUTRAL": 0,
+        "MIXED": 0,
+    }
+
+    for item in response:
+        res[item['_id']] = item['count']
+    
+    return res
 
 @app.route("/get_tweets_by_poi/", methods=['GET', 'POST'])
 def get_tweets_by_poi():
