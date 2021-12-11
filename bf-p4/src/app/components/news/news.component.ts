@@ -27,7 +27,6 @@ export class NewsComponent implements OnInit {
     console.log(this.query);
     if (this.query) {
       this.query.query =this.query.query.trim();
-      this.query.query = this.query.query.replace(" ", " AND ");
       this.newsArr = await this.newsService.getNews(encodeURI(this.query.query), '', '').toPromise();
       this.newsArr = this.newsArr.articles;
     }
