@@ -1,10 +1,11 @@
 from flask import Flask, request
 import requests
 import argparse
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import pandas as pd
 from apscheduler.schedulers.background import BackgroundScheduler
 import pymongo
+from requests.models import Response
 from variables import MONGO_CONNECT_URL
 import df_utils
 
@@ -25,6 +26,7 @@ db = client.get_database(db_name)
 app = Flask(__name__)
 CORS(app)
 app.config['Access-Control-Allow-Origin'] = '*'
+
 
 # ============================= LOAD DATA ON RUN =============================
 url_world = "https://pomber.github.io/covid19/timeseries.json"
@@ -99,9 +101,15 @@ def get_country_cases():
 
         from_date = request.args.get("from_date")
         till_date = request.args.get("till_date")
-
+        if country == "USA":
+            country = "US"
+        elif country == "INDIA":
+            country = "India"
+        elif country == "MEXICO":
+            country = "Mexico"
         df = pd.DataFrame.from_dict(res_world_count.get(country),orient='columns')
-
+        print("df.columns")
+        print(df.columns)
         df["date"] = pd.to_datetime(df["date"], format='%Y-%m-%d')
 
         # Get data between dates
@@ -124,6 +132,7 @@ def get_country_cases():
             }
     else:
         return "Try POST request"  
+
 
 def update_country_count():
     print("UPDATED WORLD COUNT")

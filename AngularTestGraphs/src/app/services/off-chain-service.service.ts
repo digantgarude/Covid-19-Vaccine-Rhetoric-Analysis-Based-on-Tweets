@@ -28,6 +28,7 @@ export class OffChainServiceService {
    */
   public getCountryCasesAll(country:String, from_date:String, till_date:String){
     // console.debug("Country Selected : "+country);
+
     return this.httpClient.get(`${BASE_URL_BACKEND}/country?country=${country}&from_date=${from_date}&till_date=${till_date}`);
   }
 
