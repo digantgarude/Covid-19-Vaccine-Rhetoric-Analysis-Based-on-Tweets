@@ -65,8 +65,9 @@ export class QuerySearchComponent implements OnInit {
         noReplies: true
       }
       this.solrService.simpleQuerySolr(formVal.searchFormControlName, queryOptions).subscribe(async (data: any) => {
-        await this.mapTweets(data.response.docs);
-        this.rawTweets = this.tweets;
+        await this.mapTweets(data);
+        this.rawTweets = data;
+        this.tweets = data;
         this.solrService._searchData.next(this.tweets);
         this.spinnerService.hide();
         await this.setSentimentData();
@@ -97,11 +98,10 @@ export class QuerySearchComponent implements OnInit {
   }
 
   async mapTweets(finalTweets: any) {
-    let tweetList:any = [];
-    this.tweets = finalTweets.map((tweet: any) => {
-      tweetList.push(tweet.id);
-      return this.allTweets[tweet.id];
+    let tweetList = finalTweets.map((tweet: any) => {
+      return tweet.id;
     });
+    console.log(tweetList);
     this.solrService._tweetList.next(tweetList);
   }
 
