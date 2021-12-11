@@ -17,7 +17,7 @@ misinfo_data = misinfo_data["5080"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--host", type=str, required=False, default="0.0.0.0")
-parser.add_argument("--port", type=int, required=False, default=6000)
+parser.add_argument("--port", type=int, required=False, default=7000)
 parser.add_argument("--db_name", type=str, required=False, default="IR_Project")
 
 args            = parser.parse_args()
