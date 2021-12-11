@@ -7,7 +7,7 @@
                     <mat-card-title >{{tweet.poi_id? tweet.poi_name: "Twitter User"}}
                         <mat-icon *ngIf="tweet.poi_id" class="verified-icon"> verified</mat-icon>
                         <span *ngIf="tweet.sentiment == 'NEUTRAL'" class="sentiment-icon"> 😐</span>
-                        <span *ngIf="tweet.sentiment == 'NEGATIVE'" class="sentiment-icon"> 😟</span>
+                        <span *ngIf="tweet.sentiment == 'NEGATIVE'" class="sentiment-icon"> 😡</span>
                         <span *ngIf="tweet.sentiment == 'POSITIVE'" class="sentiment-icon"> 😃  </span>
                         <span *ngIf="tweet.sentiment == 'MIXED'" class="sentiment-icon"> 🤷  </span>
                     </mat-card-title>
