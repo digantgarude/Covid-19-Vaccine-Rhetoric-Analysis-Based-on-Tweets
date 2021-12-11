@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SpinnerService } from './spinner.service';
-const BASE_URL_BACKEND = `http://3.142.94.110:6000/`
+const BASE_URL_BACKEND = `http://3.142.94.110:7000/`
 
 @Injectable({
   providedIn: 'root'
