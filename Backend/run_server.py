@@ -8,6 +8,12 @@ import pymongo
 from requests.models import Response
 from variables import MONGO_CONNECT_URL
 import df_utils
+import json
+import re
+f = open("./Datasets/vaccine_hesitancy.json", "r")
+misinfo_data = json.load(f)
+f.close()
+misinfo_data = misinfo_data["5080"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--host", type=str, required=False, default="0.0.0.0")
@@ -164,6 +170,29 @@ def get_tweets_by_ids():
         }
     else:
         return "Try POST request"
+
+@app.route("/get_misinfo_tweets_by_country/", methods=['GET', 'POST'])
+def get_misinfo_tweets_by_country():
+    if request.method == "GET":
+        country = request.args.get("country")
+        print(country)
+        response = list(db['tweets'].find({
+            "id": {"$in":misinfo_data},
+            "country": re.compile(r""+country+r"(?i)")
+        }))
+
+        cleaned_response = []
+        for obj in response:
+            obj['_id'] = str(obj['_id']) 
+            cleaned_response.append(obj)
+
+        
+        return {
+            "tweets": cleaned_response
+            # "sentiments": get_sentiments_by_tweets_ids(data['tweet_ids'])
+        }
+    else:
+        return "Try GET request"
 
 
 def get_sentiments_by_tweets_ids(tweet_ids):

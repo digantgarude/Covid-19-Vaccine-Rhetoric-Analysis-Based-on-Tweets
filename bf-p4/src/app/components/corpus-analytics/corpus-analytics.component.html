@@ -144,7 +144,38 @@
         </mat-tab >
 
         <mat-tab label="Vaccine Mis-informations">
-
+            <ng-template matTabContent>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <br>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select from {{len_countries}} countries.</mat-label>
+                                <mat-select (selectionChange)="selectedCountryMisinfoValue($event)">
+                                  <mat-option *ngFor="let country of countries" [value]="country">
+                                    {{country}}
+                                  </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <app-misinfo-dist-country-pie [selected_country_misinfo]="selected_country_misinfo"></app-misinfo-dist-country-pie>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <br>
+                            <app-misinfo-dist-country></app-misinfo-dist-country>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <app-misinfo-tweets></app-misinfo-tweets>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <app-misinfo-keywords-used></app-misinfo-keywords-used>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
         </mat-tab>
     </mat-tab-group>
 </div>

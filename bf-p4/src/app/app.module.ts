@@ -26,6 +26,10 @@ import { CountryWiseHashtagWordCloudComponent } from './components/corpus-analyt
 import { PoiHashtagWordcloudComponent } from './components/corpus-analytics/components/poi-hashtag-wordcloud/poi-hashtag-wordcloud.component';
 import { SentimentHashtagWordcloudOverallComponent } from './components/corpus-analytics/components/sentiment-hashtag-wordcloud-overall/sentiment-hashtag-wordcloud-overall.component';
 import { WordCloudComponent } from './query-analytics/components/word-cloud/word-cloud.component';
+import { MisinfoDistCountryPieComponent } from './components/corpus-analytics/components/misinfo-dist-country-pie/misinfo-dist-country-pie.component';
+import { MisinfoTweetsComponent } from './components/corpus-analytics/components/misinfo-tweets/misinfo-tweets.component';
+import { MisinfoDistCountryComponent } from './components/corpus-analytics/components/misinfo-dist-country/misinfo-dist-country.component';
+import { MisinfoKeywordsUsedComponent } from './components/corpus-analytics/components/misinfo-keywords-used/misinfo-keywords-used.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,11 @@ import { WordCloudComponent } from './query-analytics/components/word-cloud/word
     CountryWiseHashtagWordCloudComponent,
     PoiHashtagWordcloudComponent,
     SentimentHashtagWordcloudOverallComponent,
-    WordCloudComponent
+    WordCloudComponent,
+    MisinfoDistCountryPieComponent,
+    MisinfoTweetsComponent,
+    MisinfoDistCountryComponent,
+    MisinfoKeywordsUsedComponent
   ],
   imports: [
     BrowserModule,
