@@ -11,8 +11,7 @@ export class SolrService {
   public _searchData = new BehaviorSubject({});
   public _tweetList = new BehaviorSubject([]);
   public processed_tweets: any = [];
-  solrBaseUrl: string = "http://localhost:5000/getTweets"
-  pythonServerUrl: string = "http://localhost:8080/get_tweets_by_ids/"
+  solrBaseUrl: string = "http://3.142.94.110:5000/getTweets"
 
   //Query Options
   private noReplyQuery: string = "-replied_to_tweet_id:*";
