@@ -15,26 +15,6 @@ export class AppComponent {
 
   constructor(public solrService: SolrService, public spinnerService: SpinnerService, private corpusService: CorpusAnalyticsService,
     private dynamicService: DynamicAnalysisService, public router: Router) {
-      this.router.events.subscribe((event: Event) => {
-        console.log('here listning')
-        switch (true) {
-          case event instanceof NavigationStart: {
-            this.spinnerService.show();
-            break;
-          }
-  
-          case event instanceof NavigationEnd:
-          case event instanceof NavigationCancel:
-          case event instanceof NavigationError: {
-            this.spinnerService.hide();
-            break;
-          }
-          default: {
-            break;
-          }
-        }
-      });
-
   }
 
   ngOnInit() { }
