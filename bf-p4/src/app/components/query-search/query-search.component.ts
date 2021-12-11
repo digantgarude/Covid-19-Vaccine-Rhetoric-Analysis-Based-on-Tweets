@@ -155,10 +155,9 @@ export class QuerySearchComponent implements OnInit {
   }
 
   async setTweetDistribution() {
-    this.solrService._tweet_distribution.push((await this.getMexicoTweetDistribution()).length);
-    this.solrService._tweet_distribution.push((await this.getIndiaTweetDistribution()).length);
     this.solrService._tweet_distribution.push((await this.getUSATweetDistribution()).length);
-    console.log(this.solrService._tweet_distribution);
+    this.solrService._tweet_distribution.push((await this.getIndiaTweetDistribution()).length);
+    this.solrService._tweet_distribution.push((await this.getMexicoTweetDistribution()).length);
   }
 
   async getUSATweetDistribution() {

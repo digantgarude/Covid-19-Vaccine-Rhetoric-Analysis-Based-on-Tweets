@@ -1,6 +1,6 @@
 <div [ngClass]="{'box': router.url === '/search', 'no-box': router.url != '/search' }">
   <mat-toolbar class="header">
-    <span>Team Brute Force</span>
+    <span class="title" [routerLink]="['']">Team Brute Force</span>
     <span class="example-spacer"></span>
     <button *ngIf="solrService._searchFlag | async" [routerLink]="['analyzeSearch']" mat-stroked-button>View Search
       Analytics</button>
