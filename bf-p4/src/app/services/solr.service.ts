@@ -9,6 +9,7 @@ import { SpinnerService } from './spinner.service';
 export class SolrService {
   public _searchFlag = new BehaviorSubject(false);
   public _searchData = new BehaviorSubject({});
+  public _tweetList = new BehaviorSubject([]);
   public processed_tweets: any = [];
   solrBaseUrl: string = "http://3.21.230.103:8983/solr/IR_P4/select?fl=id&q.op=OR&q=tweet_text%3AQUERY&rows=235000"
   pythonServerUrl: string = "http://localhost:8080/get_tweets_by_ids/"

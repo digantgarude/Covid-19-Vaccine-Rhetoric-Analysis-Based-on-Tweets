@@ -57,20 +57,18 @@ export class QuerySearchComponent implements OnInit {
 
     await this.getRawTweets();
     const formVal = this.searchForm.value;
-    console.log(formVal);
     if (this.searchForm.valid) {
       this.solrService._searchFlag.next(true)
       this.searchFlag = true;
       this.spinnerService.show();
       let queryOptions: any = {
-        noReplies: true,
-        allPoisOnly: formVal.poiOnly
+        noReplies: true
       }
       this.solrService.simpleQuerySolr(formVal.searchFormControlName, queryOptions).subscribe(async (data: any) => {
         await this.mapTweets(data.response.docs);
-        this.spinnerService.hide();
         this.rawTweets = this.tweets;
         this.solrService._searchData.next(this.tweets);
+        this.spinnerService.hide();
         await this.setSentimentData();
         const query = {
           query: formVal.searchFormControlName,
@@ -99,9 +97,12 @@ export class QuerySearchComponent implements OnInit {
   }
 
   async mapTweets(finalTweets: any) {
+    let tweetList:any = [];
     this.tweets = finalTweets.map((tweet: any) => {
+      tweetList.push(tweet.id);
       return this.allTweets[tweet.id];
     });
+    this.solrService._tweetList.next(tweetList);
   }
 
   async getRawTweets() {
