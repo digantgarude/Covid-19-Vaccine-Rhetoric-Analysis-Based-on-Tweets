@@ -19,6 +19,7 @@ data = json.load(f)
 AWS_IP = '3.21.230.103'
 core_name = 'IR_P4'
 query_url = f"http://{AWS_IP}:8983/solr/{core_name}/select?q=QUERY&q.op=OR&fl=id&wt=json&indent=true&rows=50000"
+newsUrl = "https://newsapi.org/v2/everything?qInTitle=QUERY&from=FROM_DATE&to=TO_DATE&sortBy=relevancy&apiKey=d4a1ec1c128945dbb318d8a7b367979a"
 
 
 
@@ -122,6 +123,19 @@ def get_tweets():
                 tweet_dict.append(data[str(id)])
             
             return jsonify(tweet_dict)
+
+@app.route('/getNews', methods = ['GET', 'POST', 'DELETE'])
+def get_news():
+    request_data = request.get_json()
+    if request.method == 'POST':
+        if 'query' in request_data:
+            query = request_data['query']
+           
+            url = newsUrl
+            url = url.replace("QUERY", query)
+            response = req.get(url).json()
+            
+            return jsonify(response)
 
 
 
