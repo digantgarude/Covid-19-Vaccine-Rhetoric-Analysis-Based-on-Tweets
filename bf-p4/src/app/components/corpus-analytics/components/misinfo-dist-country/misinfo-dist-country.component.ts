@@ -33,7 +33,7 @@ export class MisinfoDistCountryComponent implements OnInit {
         zoomType: 'xy'
       },
       title: {
-        text: 'Country wise distribution of misinformation tweets',
+        text: 'Country Wise Distribution',
         align: 'center'
       },
       xAxis: [{

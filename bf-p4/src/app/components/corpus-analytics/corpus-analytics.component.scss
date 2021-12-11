@@ -20,7 +20,7 @@
 .tab-body{
     background-color: inherit;
 }
-::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+:host ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
     background-color: #475a69b6;
  }
 .router-body{
