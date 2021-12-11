@@ -4,18 +4,18 @@
             <mat-card class="row example-card">
                 <mat-card-header>
                     <div mat-card-avatar class="example-header-image"></div>
-                    <mat-card-title >{{allTweets[tweet.id].poi_id? allTweets[tweet.id].poi_name: "Twitter User"}}
-                        <mat-icon *ngIf="allTweets[tweet.id].poi_id" class="verified-icon"> verified</mat-icon>
-                        <span *ngIf="allTweets[tweet.id].sentiment == 'NEUTRAL'" class="sentiment-icon"> 😐</span>
-                        <span *ngIf="allTweets[tweet.id].sentiment == 'NEGATIVE'" class="sentiment-icon"> 😟</span>
-                        <span *ngIf="allTweets[tweet.id].sentiment == 'POSITIVE'" class="sentiment-icon"> 😃  </span>
-                        <span *ngIf="allTweets[tweet.id].sentiment == 'MIXED'" class="sentiment-icon"> 🤷  </span>
+                    <mat-card-title >{{tweet.poi_id? tweet.poi_name: "Twitter User"}}
+                        <mat-icon *ngIf="tweet.poi_id" class="verified-icon"> verified</mat-icon>
+                        <span *ngIf="tweet.sentiment == 'NEUTRAL'" class="sentiment-icon"> 😐</span>
+                        <span *ngIf="tweet.sentiment == 'NEGATIVE'" class="sentiment-icon"> 😟</span>
+                        <span *ngIf="tweet.sentiment == 'POSITIVE'" class="sentiment-icon"> 😃  </span>
+                        <span *ngIf="tweet.sentiment == 'MIXED'" class="sentiment-icon"> 🤷  </span>
                     </mat-card-title>
-                    <mat-card-subtitle>{{allTweets[tweet.id].tweet_date| date}}</mat-card-subtitle>
+                    <mat-card-subtitle>{{tweet.tweet_date| date}}</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
                     <p>
-                        {{allTweets[tweet.id].tweet_text}}
+                        {{tweet.tweet_text}}
                     </p>
                 </mat-card-content>
             </mat-card>

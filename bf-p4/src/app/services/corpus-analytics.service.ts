@@ -10,9 +10,6 @@ export class CorpusAnalyticsService {
     this.httpClient.get("assets/sentiment_corpus.json").toPromise().then((data:any) => {
       this.sentiment_corpus_data = data;
       this.spinnerService.hide();
-      console.log(Object.keys(data).length);
-      console.log(data);
-      console.log(data.hashtags_word_cloud_corpus);
     });
   }
   
