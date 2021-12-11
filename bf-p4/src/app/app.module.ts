@@ -30,6 +30,7 @@ import { MisinfoDistCountryPieComponent } from './components/corpus-analytics/co
 import { MisinfoTweetsComponent } from './components/corpus-analytics/components/misinfo-tweets/misinfo-tweets.component';
 import { MisinfoDistCountryComponent } from './components/corpus-analytics/components/misinfo-dist-country/misinfo-dist-country.component';
 import { MisinfoKeywordsUsedComponent } from './components/corpus-analytics/components/misinfo-keywords-used/misinfo-keywords-used.component';
+import { QueryStatsComponent } from './query-analytics/components/query-stats/query-stats.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { MisinfoKeywordsUsedComponent } from './components/corpus-analytics/comp
     MisinfoDistCountryPieComponent,
     MisinfoTweetsComponent,
     MisinfoDistCountryComponent,
-    MisinfoKeywordsUsedComponent
+    MisinfoKeywordsUsedComponent,
+    QueryStatsComponent
   ],
   imports: [
     BrowserModule,

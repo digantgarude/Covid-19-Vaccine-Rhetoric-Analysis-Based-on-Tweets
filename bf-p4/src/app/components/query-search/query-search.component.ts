@@ -71,10 +71,11 @@ export class QuerySearchComponent implements OnInit {
         this.solrService._searchData.next(this.tweets);
         this.spinnerService.hide();
         await this.setSentimentData();
+        this.solrService._tweet_distribution = [];
+        this.setTweetDistribution().then(() => console.log('done'));
         const query = {
           query: formVal.searchFormControlName,
         };
-        console.log(query);
 
         this._searchData = query;
 
@@ -87,7 +88,6 @@ export class QuerySearchComponent implements OnInit {
     const lenNeg = (await this.negativeSentiment()).length;
     const lenMix = (await this.mixedSentiment()).length;
     const lenNeut = (await this.neutralSentiment()).length;
-    console.log(lenPos);
     const sentData = {
       positive: lenPos,
       negative: lenNeg,
@@ -101,7 +101,6 @@ export class QuerySearchComponent implements OnInit {
     let tweetList = finalTweets.map((tweet: any) => {
       return tweet.id;
     });
-    console.log(tweetList);
     this.solrService._tweetList.next(tweetList);
   }
 
@@ -155,6 +154,23 @@ export class QuerySearchComponent implements OnInit {
 
   }
 
+  async setTweetDistribution() {
+    this.solrService._tweet_distribution.push((await this.getMexicoTweetDistribution()).length);
+    this.solrService._tweet_distribution.push((await this.getIndiaTweetDistribution()).length);
+    this.solrService._tweet_distribution.push((await this.getUSATweetDistribution()).length);
+    console.log(this.solrService._tweet_distribution);
+  }
 
+  async getUSATweetDistribution() {
+    return this.rawTweets.filter((tweet: any) => tweet.country === 'USA');
+  }
+
+  async getIndiaTweetDistribution() {
+    return this.rawTweets.filter((tweet: any) => tweet.country === 'INDIA');
+  }
+
+  async getMexicoTweetDistribution() {
+    return this.rawTweets.filter((tweet: any) => tweet.country === 'MEXICO');
+  }
 
 }

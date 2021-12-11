@@ -34,9 +34,10 @@ export class SearchResultsComponent implements OnInit {
   }
 
   ngOnChanges() {
-    console.log(this.tweets);
-    this.dataSource.data = this.tweets;
-    window.scrollTo(0, 0);
+    if (this.dataSource) {
+      this.dataSource.data = this.tweets;
+      window.scrollTo(0, 0);
+    }
   }
 
 

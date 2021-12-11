@@ -11,6 +11,7 @@ export class SolrService {
   public _searchData = new BehaviorSubject({});
   public _tweetList = new BehaviorSubject([]);
   public processed_tweets: any = [];
+  public _tweet_distribution: any = [];
   solrBaseUrl: string = "http://3.142.94.110:5000/getTweets"
 
   //Query Options
@@ -37,4 +38,5 @@ export class SolrService {
   searchDisabled() {
     this._searchData.next(false);
   }
+
 }
