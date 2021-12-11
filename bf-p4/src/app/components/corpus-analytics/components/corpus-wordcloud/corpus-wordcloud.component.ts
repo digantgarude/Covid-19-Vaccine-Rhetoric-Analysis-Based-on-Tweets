@@ -45,7 +45,7 @@ export class CorpusWordcloudComponent implements OnInit {
         name: 'Occurrences'
       }],
       title: {
-        text: 'Corpus Hashtag Analytics'
+        text: 'Top hashtags in corpus'
       }
     };
   }
@@ -54,9 +54,9 @@ export class CorpusWordcloudComponent implements OnInit {
     // let data = this.corpusService.sentiment_corpus_data;
     let data = await this.corpusService.getCorpusWordCloud();
     // let data = this.corpusService.sentiment_corpus_data.hashtags_word_cloud_corpus;
-    console.log("WORD CLOUD DATA RECIEVE")
-    console.log(data)
-    this.dataFill(data.slice(0,50));
+    // console.log("WORD CLOUD DATA RECIEVE")
+    // console.log(data)
+    this.dataFill(data.slice(0,20));
     Highcharts.chart('word-cloud-container', this.options);
   }
 
