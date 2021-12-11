@@ -39,10 +39,9 @@ export class WordCloudComponent implements OnInit {
   }
 
   async dataFill(data: any) {
-    console.log(data);
     this.options = {
       chart: {
-        borderWidth:3,
+        borderWidth: 3,
         borderColor: '#EBBA95'
       },
       accessibility: {
@@ -67,13 +66,14 @@ export class WordCloudComponent implements OnInit {
   async renderChart() {
     // let data = this.corpusService.sentiment_corpus_data;
     // let data = this.corpusService.sentiment_corpus_data.hashtags_word_cloud_corpus;
-    console.log("WORD CLOUD DATA RECIEVE")
-    console.log(this.data.data)
-    if (this.data.data.length > 50)
-      await this.dataFill(this.data.data.slice(0, 50));
-    else
-      await this.dataFill(this.data.data);
-    Highcharts.chart(this.id, this.options);
+    if (this.data.data) {
+      console.log("WORD CLOUD DATA RECIEVE")
+      if (this.data.data.length > 50)
+        await this.dataFill(this.data.data.slice(0, 50));
+      else
+        await this.dataFill(this.data.data);
+      Highcharts.chart(this.id, this.options);
+    }
   }
 
   ngOnInit() {
