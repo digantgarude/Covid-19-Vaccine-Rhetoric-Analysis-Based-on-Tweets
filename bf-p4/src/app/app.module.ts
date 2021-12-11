@@ -18,6 +18,13 @@ import { OverallSentimentComponent } from './components/corpus-analytics/compone
 import { PoiSentimentComponent } from './components/corpus-analytics/components/poi-sentiment/poi-sentiment.component';
 import { CountrywiseSentimentComponent } from './components/corpus-analytics/components/countrywise-sentiment/countrywise-sentiment.component';
 import { CorpusWordcloudComponent } from './components/corpus-analytics/components/corpus-wordcloud/corpus-wordcloud.component';
+import { PoiTweetCountsComponent } from './components/corpus-analytics/components/poi-tweet-counts/poi-tweet-counts.component';
+import { CovidCountryCasesComponent } from './components/corpus-analytics/components/covid-country-cases/covid-country-cases.component';
+import { CountryTweetDistChartComponent } from './components/corpus-analytics/components/country-tweet-dist-chart/country-tweet-dist-chart.component';
+import { CovidCountryDeathsComponent } from './components/corpus-analytics/components/covid-country-deaths/covid-country-deaths.component';
+import { CountryWiseHashtagWordCloudComponent } from './components/corpus-analytics/components/country-wise-hashtag-word-cloud/country-wise-hashtag-word-cloud.component';
+import { PoiHashtagWordcloudComponent } from './components/corpus-analytics/components/poi-hashtag-wordcloud/poi-hashtag-wordcloud.component';
+import { SentimentHashtagWordcloudOverallComponent } from './components/corpus-analytics/components/sentiment-hashtag-wordcloud-overall/sentiment-hashtag-wordcloud-overall.component';
 import { WordCloudComponent } from './query-analytics/components/word-cloud/word-cloud.component';
 
 @NgModule({
@@ -33,6 +40,13 @@ import { WordCloudComponent } from './query-analytics/components/word-cloud/word
     PoiSentimentComponent,
     CountrywiseSentimentComponent,
     CorpusWordcloudComponent,
+    PoiTweetCountsComponent,
+    CovidCountryCasesComponent,
+    CountryTweetDistChartComponent,
+    CovidCountryDeathsComponent,
+    CountryWiseHashtagWordCloudComponent,
+    PoiHashtagWordcloudComponent,
+    SentimentHashtagWordcloudOverallComponent,
     WordCloudComponent
   ],
   imports: [
