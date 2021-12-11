@@ -53,6 +53,7 @@ export class CorpusAnalyticsService {
     return this.httpClient.get(`${BASE_URL_BACKEND}/country?country=${country}&from_date=${from_date}&till_date=${till_date}`);
   }
 
+
   /**
    * 
    * @param country {"US", "India", "Mexico"}

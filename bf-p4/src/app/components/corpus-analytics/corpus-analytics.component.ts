@@ -65,6 +65,7 @@ export class CorpusAnalyticsComponent implements OnInit {
   len_poi:any  = this.poi_names.length;
 
   public selected_country:string = "USA";
+  public selected_country_misinfo:string = "USA";
   countries = ["USA", "India", "Mexico"]
   public len_countries:any  = this.countries.length;
 
@@ -85,6 +86,11 @@ export class CorpusAnalyticsComponent implements OnInit {
   selectedSentimentValue(event: MatSelectChange) {
     this.selected_sentiment = event.value;
     console.log(this.selected_sentiment);
+  }
+
+  selectedCountryMisinfoValue(event: MatSelectChange) {
+    this.selected_country_misinfo = event.value;
+    console.log(this.selected_country_misinfo);
   }
 
   ngOnInit(): void {
