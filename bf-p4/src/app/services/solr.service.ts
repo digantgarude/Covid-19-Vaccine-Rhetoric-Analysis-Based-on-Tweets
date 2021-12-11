@@ -20,7 +20,7 @@ export class SolrService {
   constructor(private httpClient: HttpClient, private spinnerService: SpinnerService) {
     spinnerService.show();
     console.log('here in services');
-    this.httpClient.get("assets/processed_tweets.json").subscribe((data) => {
+    this.httpClient.get("assets/processed_tweets.json", { headers: { 'Access-Control-Allow-Origin': '*' } }).subscribe((data) => {
       this.processed_tweets = data;
       spinnerService.hide();
       console.log(Object.keys(data).length);
