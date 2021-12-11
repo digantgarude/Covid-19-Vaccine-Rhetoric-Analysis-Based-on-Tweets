@@ -14,7 +14,8 @@ def top_tfidf(ids,data):
     importance = np.argsort(np.asarray(tfs.sum(axis=0)).ravel())[::-1]
     
     tfidf_feature_names = np.array(tfidf.get_feature_names())
+    scores = np.sort(np.asarray(tfs.sum(axis=0)).ravel())[::-1]
     #print(importance,tfidf_feature_names)
     
-    return tfidf_feature_names[importance[:]] #Returns top 10
+    return tfidf_feature_names[importance[:]], scores #Returns top 10
 

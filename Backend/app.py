@@ -1,6 +1,5 @@
 from flask import Flask,jsonify,request
-
-import pysolr
+import requests as req
 
 #import sentiment_analysis
 import json
@@ -12,11 +11,15 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from topic_modelling import convert_to_df_for_lda,train_lda_model
 from topic_no_lda import top_tfidf
 import re
-
+from flask_cors import CORS
 
 ##Replace this with updated json dump
-f = open('processed_tweets_v5.json','rb')
+f = open('processed_tweets.json','rb')
 data = json.load(f)
+AWS_IP = '3.21.230.103'
+core_name = 'IR_P4'
+query_url = f"http://{AWS_IP}:8983/solr/{core_name}/select?q=QUERY&q.op=OR&fl=id&wt=json&indent=true&rows=50000"
+newsUrl = "https://newsapi.org/v2/everything?qInTitle=QUERY&from=FROM_DATE&to=TO_DATE&sortBy=relevancy&apiKey=d4a1ec1c128945dbb318d8a7b367979a"
 
 
 
@@ -59,12 +62,14 @@ def hashtags(ids):
     tfs = tfidf.fit_transform(text)
     importance = np.argsort(np.asarray(tfs.sum(axis=0)).ravel())[::-1]
     tfidf_feature_names = np.array(tfidf.get_feature_names())
-    
-    return list(tfidf_feature_names[importance[:]]) #Returns in sorted order based on tfidf score
+    scores = np.sort(np.asarray(tfs.sum(axis=0)).ravel())[::-1]
+    return list(tfidf_feature_names[importance[:]]), list(scores) #Returns in sorted order based on tfidf score
 
 
 
 app = Flask(__name__)
+
+CORS(app)
 
 @app.route('/new_search', methods = ['GET', 'POST', 'DELETE'])
 def user():
@@ -84,12 +89,53 @@ def top_hashtag():
             ids = request_data['id']
            
             #print("inside post")
-            hashtag_list = hashtags(ids)
+            hashtag_list, scores = hashtags(ids)
+            hashtags_lst = []
             hashtag_dict = {}
-            hashtag_dict[len(hashtag_list)] = json.dumps(hashtag_list)
+            for index in range(len(hashtag_list)):
+                hashtags_lst.append({'name': hashtag_list[index], 'weight':scores[index]/100})
+
+            hashtag_dict['data'] = hashtags_lst
+            # hashtag_dict['weight']  = json.dumps(scores)
+            hashtag_dict['length'] = len(hashtag_list)
+
             print('CREATED LIST-------------------------')
             #print(hashtag_dict)
             return jsonify(hashtag_dict)
+
+@app.route('/getTweets', methods = ['GET', 'POST', 'DELETE'])
+def get_tweets():
+    request_data = request.get_json()
+    if request.method == 'POST':
+        if 'query' in request_data:
+            query = request_data['query']
+           
+            #print("inside post")
+            url = query_url
+            url = url.replace("QUERY", query)
+            response = req.get(url).json()
+            res_data = response['response']['docs']
+            print(len(res_data))
+            tweet_dict = []
+            for obj in res_data:
+                id = obj['id']
+                # sentiments['positive'] = sentiments['positive'] +
+                tweet_dict.append(data[str(id)])
+            
+            return jsonify(tweet_dict)
+
+@app.route('/getNews', methods = ['GET', 'POST', 'DELETE'])
+def get_news():
+    request_data = request.get_json()
+    if request.method == 'POST':
+        if 'query' in request_data:
+            query = request_data['query']
+           
+            url = newsUrl
+            url = url.replace("QUERY", query)
+            response = req.get(url).json()
+            
+            return jsonify(response)
 
 
 
@@ -117,11 +163,21 @@ def topic_nolda():
             ids = request_data['id']
            
             #print("inside post")
-            topic_list = top_tfidf(ids,data)
+            topic_list, scores = top_tfidf(ids,data)
+            topic_lst = []
+            topic_dict = {}
+            if len(topic_list) > 50:
+                topic_list  = topic_list[:50]
+            for index in range(len(topic_list)):
+                topic_lst.append({'name': topic_list[index], 'weight':scores[index]})
+
+            topic_dict['data'] = topic_lst
+            # hashtag_dict['weight']  = json.dumps(scores)
+            topic_dict['length'] = len(topic_lst)
             
             print('CREATED LIST-------------------------')
             #print(hashtag_dict)
-            return jsonify(list(topic_list))
+            return jsonify(topic_dict)
 
 
 

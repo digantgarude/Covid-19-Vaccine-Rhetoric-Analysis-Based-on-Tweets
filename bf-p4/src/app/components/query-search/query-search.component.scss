@@ -37,6 +37,10 @@
       }
     }
 
+    ::ng-deep .mat-select-value{    
+      color: white!important;  
+    }
+
     .example-section {
       display: flex;
       align-content: center;
