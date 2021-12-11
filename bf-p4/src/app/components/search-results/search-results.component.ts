@@ -20,7 +20,7 @@ export class SearchResultsComponent implements OnInit {
 
   allTweets: any = [];
   processedTweets: any = [];
-  positive_emoji="&#128515;";
+  positive_emoji = "&#128515;";
 
   constructor(private linkPreview: LinkPreviewService, public solrSearch: SolrService, private spinnerService: SpinnerService,
     private changeDetectorRef: ChangeDetectorRef) { }
@@ -29,12 +29,14 @@ export class SearchResultsComponent implements OnInit {
     this.allTweets = this.solrSearch.processed_tweets;
     this.dataSource = new MatTableDataSource(this.tweets);
     this.tweets.paginator = this.paginator
-    this.obs = this.tweets.connect();
+    if (this.tweets.lenght > 0)
+      this.obs = this.tweets.connect();
   }
 
   ngOnChanges() {
+    console.log(this.tweets);
     this.dataSource.data = this.tweets;
-    window.scrollTo(0,0); 
+    window.scrollTo(0, 0);
   }
 
 

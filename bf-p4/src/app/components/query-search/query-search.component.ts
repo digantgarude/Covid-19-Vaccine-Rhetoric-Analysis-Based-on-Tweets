@@ -17,6 +17,8 @@ export class QuerySearchComponent implements OnInit {
   fromDate: string = '';
   toDate: string = '';
   _searchData: any;
+  rawTweets: any;
+  sentimentData: any = {};
   public get searchData(): any {
     return this._searchData;
   }
@@ -25,9 +27,10 @@ export class QuerySearchComponent implements OnInit {
   }
   dates: any = [];
   newsData: any = {};
-  poi_names = ['ArvindKejriwal','BernieSanders','CDCgov','Claudiashein','EnriqueAlfaroR','GovRonDeSantis','GregAbbott_TX','HHS_ASH','HLGatell','JoeBiden','KamalaHarris','LindseyGrahamSC','MamataOfficial','MoHFW_INDIA','POTUS','PeteButtigieg','RahulGandhi','RandPaul','RicardoMonrealA','SSalud_mx','SecBecerra','SenSanders','VP','VicenteFoxQue','alfredodelmazo','alitomorenoc','amyklobuchar','fernandeznorona','lopezobrador_','m_ebrard','mansukhmandviya','marcorubio','mattgaetz','mtgreenee','narendramodi','sambitswaraj','tatclouthier','tedcruz'];
+  poi_names = ['ArvindKejriwal', 'BernieSanders', 'CDCgov', 'Claudiashein', 'EnriqueAlfaroR', 'GovRonDeSantis', 'GregAbbott_TX', 'HHS_ASH', 'HLGatell', 'JoeBiden', 'KamalaHarris', 'LindseyGrahamSC', 'MamataOfficial', 'MoHFW_INDIA', 'POTUS', 'PeteButtigieg', 'RahulGandhi', 'RandPaul', 'RicardoMonrealA', 'SSalud_mx', 'SecBecerra', 'SenSanders', 'VP', 'VicenteFoxQue', 'alfredodelmazo', 'alitomorenoc', 'amyklobuchar', 'fernandeznorona', 'lopezobrador_', 'm_ebrard', 'mansukhmandviya', 'marcorubio', 'mattgaetz', 'mtgreenee', 'narendramodi', 'sambitswaraj', 'tatclouthier', 'tedcruz'];
   countries = ['INDIA', 'USA', 'MEXICO'];
-  sentiments = ['POSITIVE','NEGATIVE', 'NEUTRAL', 'MIXED']
+  sentiments = ['POSITIVE', 'NEGATIVE', 'NEUTRAL', 'MIXED'];
+  languages = [{ key: 'Hindi', val: 'hi' }, { key: 'English', val: 'en' }, { key: 'Spanish', val: 'es' }];
   constructor(private fb: FormBuilder, private solrService: SolrService, public spinnerService: SpinnerService, private changeDetectorRef: ChangeDetectorRef) {
   }
 
@@ -39,7 +42,8 @@ export class QuerySearchComponent implements OnInit {
       poiOnly: [false],
       poiFilter: [''],
       countryFilter: [''],
-      sentimentFilter: ['']
+      sentimentFilter: [''],
+      languageFilter: ['']
     });
     this.allTweets = this.solrService.processed_tweets;
   }
@@ -53,45 +57,102 @@ export class QuerySearchComponent implements OnInit {
 
     await this.getRawTweets();
     const formVal = this.searchForm.value;
-    console.log(formVal);
     if (this.searchForm.valid) {
       this.solrService._searchFlag.next(true)
       this.searchFlag = true;
       this.spinnerService.show();
       let queryOptions: any = {
-        noReplies: true,
-        allPoisOnly: formVal.poiOnly
+        noReplies: true
       }
       this.solrService.simpleQuerySolr(formVal.searchFormControlName, queryOptions).subscribe(async (data: any) => {
-        await this.mapTweets(data.response.docs);
-        this.solrService._searchData.next(data.response.docs);
-        console.log(data.response.docs);
+        await this.mapTweets(data);
+        this.rawTweets = data;
+        this.tweets = data;
+        this.solrService._searchData.next(this.tweets);
+        this.spinnerService.hide();
+        await this.setSentimentData();
         const query = {
           query: formVal.searchFormControlName,
-          fromDate: await Math.max(...this.dates),
-          toDate: await Math.min(...this.dates)
         };
         console.log(query);
 
         this._searchData = query;
-        this.spinnerService.hide();
+
       });
     }
   }
 
+  async setSentimentData() {
+    const lenPos = (await this.positiveSentiment()).length;
+    const lenNeg = (await this.negativeSentiment()).length;
+    const lenMix = (await this.mixedSentiment()).length;
+    const lenNeut = (await this.neutralSentiment()).length;
+    console.log(lenPos);
+    const sentData = {
+      positive: lenPos,
+      negative: lenNeg,
+      mixed: lenMix,
+      neutral: lenNeut
+    }
+    this.sentimentData = sentData;
+  }
+
   async mapTweets(finalTweets: any) {
-    this.dates = [];
-    this.tweets = finalTweets.map((tweet: any) => {
-      var date = new Date(this.allTweets[tweet.id].tweet_date);
-      this.dates.push(date.valueOf());
-      return this.allTweets[tweet.id];
+    let tweetList = finalTweets.map((tweet: any) => {
+      return tweet.id;
     });
+    console.log(tweetList);
+    this.solrService._tweetList.next(tweetList);
   }
 
   async getRawTweets() {
     if (Object.keys(this.allTweets).length == 0) {
       this.allTweets = this.solrService.processed_tweets;
     }
+  }
+
+  async positiveSentiment() {
+    return this.tweets.filter((tweet: any) => tweet.sentiment === 'POSITIVE')
+  }
+
+  async negativeSentiment() {
+    return this.tweets.filter((tweet: any) => tweet.sentiment === 'NEGATIVE')
+  }
+
+  async mixedSentiment() {
+    return this.tweets.filter((tweet: any) => tweet.sentiment === 'MIXED')
+  }
+
+  async neutralSentiment() {
+    return this.tweets.filter((tweet: any) => tweet.sentiment === 'NEUTRAL')
+  }
+
+  async filterByPoiName(poiName: string) {
+    // this.tweets.filter(tw=> tw.)
+  }
+
+  async searchFilter() {
+    console.log(this.searchForm.value);
+    const values = this.searchForm.value;
+    this.tweets = this.rawTweets.filter((tw: any) => {
+      let result = true;
+      if (values.poiOnly)
+        result = result && ((tw.poi_name) ? true : false);
+      if (values.poiFilter)
+        result = result && (tw.poi_name == values.poiFilter);
+      if (values.sentimentFilter)
+        result = result && (tw.sentiment == values.sentimentFilter);
+      if (values.languageFilter)
+        result = result && (tw.tweet_lang == values.languageFilter);
+      if (values.countryFilter)
+        result = result && (tw.country == values.countryFilter);
+      return result;
+    });
+    await this.setSentimentData();
+  }
+
+  searchPoiTweets() {
+
   }
 
 

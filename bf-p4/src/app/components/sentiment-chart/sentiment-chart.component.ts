@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import * as Highcharts from 'highcharts';
 
 @Component({
@@ -8,22 +8,27 @@ import * as Highcharts from 'highcharts';
 })
 export class SentimentChartComponent implements OnInit {
 
-  public options:any = {};
+  @Input() sentimentData: any = {};
+  public options: any = {};
   constructor() {
-    
+
   }
-  
-  
-  async dataFill(data:any){
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.renderChart();
+  }
+
+
+  async dataFill(data: any) {
     this.options = {
       chart: {
         backgroundColor: "#f2f3f2",
-        plotBackgroundColor:"#f2f3f2",
+        plotBackgroundColor: "#f2f3f2",
         plotBorderWidth: null,
         plotShadow: false,
         type: 'pie',
         zoomType: 'xy',
-        height:350
+        height: 350
       },
       title: {
         text: 'Result Sentiment Scores',
@@ -57,35 +62,36 @@ export class SentimentChartComponent implements OnInit {
       }]
     };
   }
-  
-  async renderChart() {  
+
+  async renderChart() {
     // this.offChainService.getSentiments(this.country_selected, from_date_str, till_date_str)
     // .subscribe(async (data:any) => {
-      await this.dataFill([{
-        name: 'Positive',
-        y: 61.41,
-        sliced: true,
-        selected: true,
-        color: "#4895ef"
-      }, {
-        name: 'Negative',
-        y: 11.84,
-        color:"#e63946"
-      }, {
-        name: 'Neutral',
-        y: 10.85,
-        color:"#adb5bd"
-      }, {
-        name: 'Mixed',
-        y: 4.67,
-        color: "#ffb703"
-      }])
-      Highcharts.chart('sentiment-scores-tweets-container', this.options);
+    await this.dataFill([{
+      name: 'Positive',
+      y: this.sentimentData.positive,
+      sliced: true,
+      selected: true,
+      color: "#4895ef"
+    }, {
+      name: 'Negative',
+      y: this.sentimentData.negative,
+      color: "#e63946"
+    }, {
+      name: 'Neutral',
+      y: this.sentimentData.neutral,
+      color: "#adb5bd"
+    }, {
+      name: 'Mixed',
+      y: this.sentimentData.mixed,
+      color: "#ffb703"
+    }])
+    Highcharts.chart('sentiment-scores-tweets-container', this.options);
     // })
   }
-  
+
   ngOnInit(): void {
-    this.renderChart()
+    if (this.sentimentData.positive)
+      this.renderChart()
   }
 
 }

@@ -25,6 +25,7 @@ import { CovidCountryDeathsComponent } from './components/corpus-analytics/compo
 import { CountryWiseHashtagWordCloudComponent } from './components/corpus-analytics/components/country-wise-hashtag-word-cloud/country-wise-hashtag-word-cloud.component';
 import { PoiHashtagWordcloudComponent } from './components/corpus-analytics/components/poi-hashtag-wordcloud/poi-hashtag-wordcloud.component';
 import { SentimentHashtagWordcloudOverallComponent } from './components/corpus-analytics/components/sentiment-hashtag-wordcloud-overall/sentiment-hashtag-wordcloud-overall.component';
+import { WordCloudComponent } from './query-analytics/components/word-cloud/word-cloud.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { SentimentHashtagWordcloudOverallComponent } from './components/corpus-a
     CovidCountryDeathsComponent,
     CountryWiseHashtagWordCloudComponent,
     PoiHashtagWordcloudComponent,
-    SentimentHashtagWordcloudOverallComponent
+    SentimentHashtagWordcloudOverallComponent,
+    WordCloudComponent
   ],
   imports: [
     BrowserModule,
