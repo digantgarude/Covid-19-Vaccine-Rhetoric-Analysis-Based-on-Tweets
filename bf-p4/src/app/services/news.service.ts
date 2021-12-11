@@ -13,8 +13,6 @@ export class NewsService {
 
   public getNews(query: string, startDate: string, endDate: string) {
     let url = this.rawUrl.replace("QUERY", query);
-    url = url.replace("FROM_DATE", startDate);
-    url = url.replace("TO_DATE", endDate);
     console.log(url);
     return this.httpClient.get(url);
   }

@@ -10,7 +10,8 @@ export class SolrService {
   public _searchFlag = new BehaviorSubject(false);
   public _searchData = new BehaviorSubject({});
   public processed_tweets: any = [];
-  solrBaseUrl: string = "http://3.21.230.103:8983/solr/IR_P4/select?fl=id%2Cscore&q.op=OR&q=tweet_text%3AQUERY&rows=235000"
+  solrBaseUrl: string = "http://3.21.230.103:8983/solr/IR_P4/select?fl=id&q.op=OR&q=tweet_text%3AQUERY&rows=235000"
+  pythonServerUrl: string = "http://localhost:8080/get_tweets_by_ids/"
 
   //Query Options
   private noReplyQuery: string = "-replied_to_tweet_id:*";
@@ -35,6 +36,7 @@ export class SolrService {
     }
 
     let newURL = this.solrBaseUrl.replace("QUERY", encodeURI(query));
+    console.log(newURL);
     return this.httpClient.get(newURL)
   }
 
@@ -62,5 +64,13 @@ export class SolrService {
 
   searchDisabled() {
     this._searchData.next(false);
+  }
+
+  getMappedTweets(_ids: any) {
+    return this.httpClient.post(this.pythonServerUrl, { tweet_ids: _ids }, {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
   }
 }
