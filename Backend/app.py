@@ -134,8 +134,7 @@ def get_news():
             url = newsUrl
             url = url.replace("QUERY", query)
             response = req.get(url).json()
-            
-            return jsonify(response)
+            return response
 
 
 
