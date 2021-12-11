@@ -5,12 +5,13 @@
     background-color: #fff;
 }
 
-::ng-deep .mat-select-placeholder {
-    color: #4c4c4c;
+  ::ng-deep .mat-focused .mat-form-field-label {
+    color: white !important;
+ }
+ ::ng-deep .mat-form-field-label {
+  color: white !important;
 }
-::ng-deep .mat-optgroup-label {
-    color: #5d7dc2;
-}
+
 
 .tab-group{
     margin-bottom: 2%;
@@ -19,7 +20,10 @@
 .tab-body{
     background-color: inherit;
 }
-
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #475a69b6;
+    color: sandybrown;
+ }
 .router-body{
     height: 100%;
     background-color: inherit;
