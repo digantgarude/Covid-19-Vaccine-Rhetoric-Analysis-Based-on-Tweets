@@ -18,6 +18,7 @@ import { OverallSentimentComponent } from './components/corpus-analytics/compone
 import { PoiSentimentComponent } from './components/corpus-analytics/components/poi-sentiment/poi-sentiment.component';
 import { CountrywiseSentimentComponent } from './components/corpus-analytics/components/countrywise-sentiment/countrywise-sentiment.component';
 import { CorpusWordcloudComponent } from './components/corpus-analytics/components/corpus-wordcloud/corpus-wordcloud.component';
+import { WordCloudComponent } from './query-analytics/components/word-cloud/word-cloud.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CorpusWordcloudComponent } from './components/corpus-analytics/componen
     OverallSentimentComponent,
     PoiSentimentComponent,
     CountrywiseSentimentComponent,
-    CorpusWordcloudComponent
+    CorpusWordcloudComponent,
+    WordCloudComponent
   ],
   imports: [
     BrowserModule,
