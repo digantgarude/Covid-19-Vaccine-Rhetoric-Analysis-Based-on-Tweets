@@ -38,10 +38,10 @@ export class MisinfoKeywordsUsedComponent implements OnInit {
       series: [{
         type: 'wordcloud',
         data,
-        name: 'Occurrences'
+        name: ''
       }],
       title: {
-        text: 'Top keywords for vaccine mis-information.'
+        text: 'Top keywords for vaccine hesitancy.'
       },
       menuItems: ["viewFullscreen", "printChart", "separator", "downloadPNG", "downloadJPEG", "downloadPDF", "downloadSVG"]
     };

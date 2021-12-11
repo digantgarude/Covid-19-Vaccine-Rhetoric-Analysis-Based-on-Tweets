@@ -43,7 +43,7 @@ export class MisinfoDistCountryPieComponent implements OnInit {
         backgroundColor: null,
       },
       title: {
-        text: 'Countrywise distribution of misinformation tweets.',
+        text: 'Countrywise Sentiment Distribution of Hesitancy Tweets.',
         align: 'center'
       },
       tooltip: {

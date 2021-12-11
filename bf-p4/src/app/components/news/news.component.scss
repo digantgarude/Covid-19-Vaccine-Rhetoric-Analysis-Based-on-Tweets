@@ -21,9 +21,16 @@ mat-grid-tile{
     height: inherit;
     // margin: 10px;
     border-radius: 50px;
+    margin-bottom: 0px !important;
+    height: max-content;
 }
 .body{
     overflow-y: auto;
     height: 500px;
     margin-bottom: 10px;
+}
+
+img{
+    margin-bottom: 0px !important;
+    height: max-content;
 }
