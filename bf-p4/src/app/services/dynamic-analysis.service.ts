@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class DynamicAnalysisService {
 
-  private baseURL = 'http://localhost:5000/'
+  private baseURL = 'http://3.142.94.110:5000/'
   private hashtags = 'hashtag';
   private topics = 'topic_no_lda';
   constructor(private httpClient: HttpClient) { }
