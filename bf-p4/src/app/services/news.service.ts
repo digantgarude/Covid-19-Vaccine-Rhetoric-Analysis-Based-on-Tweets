@@ -8,7 +8,7 @@ export class NewsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private rawUrl = "http://localhost:5000/getNews"
+  private rawUrl = "http://3.142.94.110:5000/getNews"
 
 
   public getNews(query: string, startDate: string, endDate: string) {
