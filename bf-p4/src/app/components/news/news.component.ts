@@ -15,11 +15,9 @@ export class NewsComponent implements OnInit {
   constructor(private newsService: NewsService, private router: Router) { }
 
   ngOnInit(): void {
-    console.log('HEre--->', this.query);
   }
 
   async ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     await this.getNews();
   }
 
@@ -27,8 +25,9 @@ export class NewsComponent implements OnInit {
     console.log(this.query);
     if (this.query) {
       this.query.query =this.query.query.trim();
-      this.newsArr = await this.newsService.getNews(encodeURI(this.query.query), '', '').toPromise();
-      this.newsArr = this.newsArr.articles;
+      this.newsArr = await this.newsService.getNews(this.query.query, '', '').toPromise();
+      console.log(this.newsArr)
+      // this.newsArr = this.newsArr.articles;
     }
   }
 

@@ -4,12 +4,14 @@
             <mat-card class="row example-card">
                 <mat-card-header>
                     <div mat-card-avatar class="example-header-image"></div>
-                    <mat-card-title >{{tweet.poi_id? tweet.poi_name: "Twitter User"}}
-                        <mat-icon *ngIf="tweet.poi_id" class="verified-icon"> verified</mat-icon>
+                    <mat-card-title>{{tweet.poi_id? tweet.poi_name: "Twitter User"}}
+                        <mat-icon *ngIf="tweet.poi_name" class="verified-icon"> verified</mat-icon>
+                        <mat-icon matTooltipPosition="below" matTooltip="Possible Anti-Vaccine Narrative"
+                            *ngIf="isHesitantTweet(tweet.id)" class="hesitant-icon"> warning_amber</mat-icon>
                         <span *ngIf="tweet.sentiment == 'NEUTRAL'" class="sentiment-icon"> 😐</span>
                         <span *ngIf="tweet.sentiment == 'NEGATIVE'" class="sentiment-icon"> 😡</span>
-                        <span *ngIf="tweet.sentiment == 'POSITIVE'" class="sentiment-icon"> 😃  </span>
-                        <span *ngIf="tweet.sentiment == 'MIXED'" class="sentiment-icon"> 🤷  </span>
+                        <span *ngIf="tweet.sentiment == 'POSITIVE'" class="sentiment-icon"> 😃 </span>
+                        <span *ngIf="tweet.sentiment == 'MIXED'" class="sentiment-icon"> 🤷 </span>
                     </mat-card-title>
                     <mat-card-subtitle>{{tweet.tweet_date| date}}</mat-card-subtitle>
                 </mat-card-header>

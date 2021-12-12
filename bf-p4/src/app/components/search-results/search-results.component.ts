@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { LinkPreviewService } from 'src/app/services/link-preview.service';
 import { SolrService } from 'src/app/services/solr.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import hesitancyKeys from '../../../assets/vaccine_hesitancy';
 
 @Component({
   selector: 'app-search-results',
@@ -40,6 +41,12 @@ export class SearchResultsComponent implements OnInit {
     }
   }
 
+  isHesitantTweet(tweetId: string) {
+    if ((hesitancyKeys.tweet_ids.filter(id => id === tweetId).length) > 0)
+      return true;
+    else
+      return false;
+  }
 
 
 }
