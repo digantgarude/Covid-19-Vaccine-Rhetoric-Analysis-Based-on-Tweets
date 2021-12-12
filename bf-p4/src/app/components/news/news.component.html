@@ -3,12 +3,12 @@
         <mat-card (click)="navigate(news.url)" class="example-card">
             <mat-grid-list cols="2" rowHeight="4:1">
                 <mat-grid-tile rowspan="2">
-                    <img mat-card-image [src]="news.urlToImage">
+                    <img *ngIf="news.image" mat-card-image [src]="news.image.contentUrl">
                 </mat-grid-tile>
                 <mat-grid-tile rowspan="2">
                     <mat-card-header>
-                        <mat-card-title>{{news.title }}</mat-card-title>
-                        <mat-card-subtitle>{{news.source.name}} | {{ news.publishedAt | date:'mediumDate'}}
+                        <mat-card-title>{{news.name }}</mat-card-title>
+                        <mat-card-subtitle>{{news.provider[0].name}} | {{ news.datePublished | date:'mediumDate'}}
                         </mat-card-subtitle>
                     </mat-card-header>
                 </mat-grid-tile>
