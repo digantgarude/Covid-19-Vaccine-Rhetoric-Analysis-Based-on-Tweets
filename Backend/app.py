@@ -1,10 +1,10 @@
 from flask import Flask,jsonify,request
 import requests as req
-from nltk.corpus import stopwords
+# from nltk.corpus import stopwords
 
-stop_words_en = set(stopwords.words('english'))        
-stop_words_ru = set(stopwords.words('spanish'))
-stopwords = stop_words_en.union(stop_words_ru)
+# stop_words_en = set(stopwords.words('english'))        
+# stop_words_ru = set(stopwords.words('spanish'))
+# stopwords = stop_words_en.union(stop_words_ru)
 #import sentiment_analysis
 import json
 import numpy as np
