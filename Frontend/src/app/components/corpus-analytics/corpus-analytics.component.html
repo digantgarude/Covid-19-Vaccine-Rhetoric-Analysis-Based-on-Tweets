@@ -1,0 +1,181 @@
+<div class="tab-body">
+    <mat-tab-group class="tab-group" dynamicHeight>
+        <mat-tab label="Overall Corpus Analytics">
+            <ng-template matTabContent>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <br>
+                        <app-overall-sentiment></app-overall-sentiment>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <br>
+                        <h3><b>Data :</b></h3>
+                        <h4>Out of the total <b>2,31,110</b> tweets collected. Following are the sentiment scores obtained over
+                            the entire corpus after running them through AWS Comprehend.</h4>
+                        <p><b>Positive :</b> 32574</p>
+                        <p><b>Negative :</b> 54124</p>
+                        <p><b>Neutral :</b> 135416</p>
+                        <p><b>Mixed :</b> 8996</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <app-corpus-wordcloud></app-corpus-wordcloud>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Select from {{len_sentiments}} Sentiments</mat-label>
+                            <mat-select (selectionChange)="selectedSentimentValue($event)">
+                            <mat-option *ngFor="let sentiment of sentiments" [value]="sentiment">
+                                {{sentiment}}
+                            </mat-option>
+                                
+                            </mat-select>
+                        </mat-form-field>
+                        <app-sentiment-hashtag-wordcloud-overall [selected_sentiment]="selected_sentiment"></app-sentiment-hashtag-wordcloud-overall>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <hr>
+            </div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="POI Analysis">
+            <ng-template matTabContent>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <br>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select from {{len_poi}} POIs</mat-label>
+                                <mat-select (selectionChange)="selectedValue($event)">
+                                    <mat-optgroup label="USA">
+                                        <mat-option *ngFor="let poi of UsaPOI" [value]="poi">
+                                            {{poi}}
+                                            </mat-option>
+                                    </mat-optgroup>
+                                    <mat-optgroup label="INDIA">
+                                        <mat-option *ngFor="let poi of IndiaPOI" [value]="poi">
+                                            {{poi}}
+                                            </mat-option>
+                                    </mat-optgroup>
+                                    <mat-optgroup label="MEXICO">
+                                        <mat-option *ngFor="let poi of MexicoPOI" [value]="poi">
+                                            {{poi}}
+                                            </mat-option>
+                                    </mat-optgroup>
+                                    
+                                </mat-select>
+                            </mat-form-field>
+                            
+                            <app-poi-sentiment [selected_poi]="selected_poi"></app-poi-sentiment>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <br>
+                            <br>
+                            <h3><b>Analysis</b></h3>
+                            <h4>A general level analysis from the charts reveals that official Sources of covid and
+                                vaccine information like CDCgov and MoHFW_INDIA have more number of neutral tweets as
+                                they only tweeted factual information which is delivered in a straight tone.</h4>
+                            <h4>Another difference that is evident is that politicians have a mix of positive, negative
+                                and neutral tweets based on their persona and whether they critque / find flaws in the
+                                existing system.</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <br>
+                            <app-poi-tweet-counts [selected_poi]="selected_poi"></app-poi-tweet-counts>
+                            <app-covid-country-cases [selected_poi_country]="selected_poi_country"></app-covid-country-cases>
+                            <app-covid-country-deaths [selected_poi_country]="selected_poi_country"></app-covid-country-deaths>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br>
+                            <app-poi-hashtag-wordcloud [selected_poi]="selected_poi"></app-poi-hashtag-wordcloud>
+                            
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="Country wise Analysis">
+            <ng-template matTabContent>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <br>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select from {{len_countries}} countries.</mat-label>
+                                <mat-select (selectionChange)="selectedCountryValue($event)">
+                                  <mat-option *ngFor="let country of countries" [value]="country">
+                                    {{country}}
+                                  </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <app-countrywise-sentiment [selected_country]="selected_country"></app-countrywise-sentiment>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <br>
+                            <app-country-tweet-dist-chart></app-country-tweet-dist-chart>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- <div class="col-md-1"></div> -->
+                        <div class="col-md-12">
+                            <app-country-wise-hashtag-word-cloud [selected_country]="selected_country"></app-country-wise-hashtag-word-cloud>
+                        </div>
+                        <!-- <div class="col-md-1"></div> -->
+                    </div>
+                </div>
+            </ng-template>
+
+        </mat-tab >
+
+        <mat-tab label="Vaccine Hesitancy Analytics">
+            <ng-template matTabContent>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <br>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select from {{len_countries}} countries.</mat-label>
+                                <mat-select (selectionChange)="selectedCountryMisinfoValue($event)">
+                                  <mat-option *ngFor="let country of countries" [value]="country">
+                                    {{country}}
+                                  </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <app-misinfo-dist-country-pie [selected_country_misinfo]="selected_country_misinfo"></app-misinfo-dist-country-pie>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <br>
+                            <app-misinfo-dist-country></app-misinfo-dist-country>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <app-misinfo-tweets></app-misinfo-tweets>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <app-misinfo-keywords-used></app-misinfo-keywords-used>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+</div>
