@@ -130,9 +130,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-bf-p4/src/assets/processed_tweets.json
-bf-p4/package-lock.json
-bf-p4/package-lock.json
+Frontend/src/assets/processed_tweets.json
+Frontend/package-lock.json
+Frontend/package-lock.json
 
 
 SentimentAnalysis/new_user_credentials.csv
