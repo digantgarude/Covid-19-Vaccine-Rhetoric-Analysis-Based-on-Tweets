@@ -2,24 +2,24 @@
 
 ## Screenshots of Live Project:
 
-![Screenshot1](Screenshots/Screen Shot 2021-12-12 at 8.32.18 AM.png)
-
-![Screenshot2](Screenshots/Screen Shot 2021-12-12 at 8.32.37 AM.png)
-
-![Screenshot3](Screenshots/Screen Shot 2021-12-12 at 8.32.43 AM.png)
-
-![Screenshot4](Screenshots/Screen Shot 2021-12-12 at 8.32.55 AM.png)
-
-![Screenshot5](Screenshots/Screen Shot 2021-12-12 at 8.33.16 AM.png)
-
-![Screenshot6](Screenshots/Screen Shot 2021-12-12 at 8.33.21 AM.png)
-
-![Screenshot7](Screenshots/Screen Shot 2021-12-12 at 8.33.27 AM.png)
-
-![Screenshot8](Screenshots/Screen Shot 2021-12-12 at 8.33.36 AM.png)
-
-![Screenshot9](Screenshots/Screen Shot 2021-12-12 at 8.33.45 AM.png)
-
+![Screenshot1](Screenshots/sc1.png)
+---
+![Screenshot2](Screenshots/sc2.png)
+---
+![Screenshot3](Screenshots/sc3.png)
+---
+![Screenshot4](Screenshots/sc4.png)
+---
+![Screenshot5](Screenshots/sc5.png)
+---
+![Screenshot6](Screenshots/sc6.png)
+---
+![Screenshot7](Screenshots/sc7.png)
+---
+![Screenshot8](Screenshots/sc8.png)
+---
+![Screenshot9](Screenshots/sc9.png)
+---
 
 ## Installation
 ---
