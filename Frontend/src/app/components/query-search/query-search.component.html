@@ -1,0 +1,97 @@
+<div class="body">
+    <mat-sidenav-container class="example-container">
+        <mat-sidenav fixedTopGap="75" fixedBottomGap="150" #sidenav disableClose="true" mode="side" position="start"
+            opened class="col-md-3 example-sidenav" fixedInViewport="true">
+
+            <!-- <div class="row"> -->
+            <form [formGroup]="searchForm" class="example-form">
+                <mat-form-field appearance="fill">
+                    <mat-label>Search</mat-label>
+                    <mat-icon matPrefix>search</mat-icon>
+                    <input (keydown.enter)="search()" type="text" matInput formControlName="searchFormControlName">
+                    <button type="button" *ngIf="searchForm.value.searchFormControlName" matSuffix mat-icon-button
+                        aria-label="Search" (click)="resetSearchBar($event)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+                <!-- <section *ngIf="!searchFlag" class="example-section">
+                    <mat-form-field appearance="fill">
+                        <mat-label>View Person of Interest Tweets</mat-label>
+                        <mat-select (selectionChange)="searchPoiTweets()" formControlName="poiFilter">
+                            <mat-option></mat-option>
+                            <mat-option *ngFor="let poi of poi_names" [value]="poi">
+                                {{poi}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </section> -->
+                <div *ngIf="searchFlag">
+                    <section class="example-section" color="sandybrown">
+                        <mat-slide-toggle (change)="searchFilter()" formControlName="poiOnly" class="example-margin">
+                            POI ONLY
+                        </mat-slide-toggle>
+                    </section>
+                    <section class="example-section">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Filter by Person of Interest</mat-label>
+                            <mat-select (selectionChange)="searchFilter()" formControlName="poiFilter">
+                                <mat-option></mat-option>
+                                <mat-option *ngFor="let poi of poi_names" [value]="poi">
+                                    {{poi}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </section>
+                    <section class="example-section">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Filter by Country</mat-label>
+                            <mat-select (selectionChange)="searchFilter()" formControlName="countryFilter">
+                                <mat-option></mat-option>
+                                <mat-option *ngFor="let country of countries" [value]="country">
+                                    {{country}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </section>
+                    <section class="example-section">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Filter by Language</mat-label>
+                            <mat-select (selectionChange)="searchFilter()" formControlName="languageFilter">
+                                <mat-option></mat-option>
+                                <mat-option *ngFor="let lang of languages" [value]="lang.val">
+                                    {{lang.key}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </section>
+                    <section class="example-section">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Filter by Sentiment</mat-label>
+                            <mat-select (selectionChange)="searchFilter()" formControlName="sentimentFilter">
+                                <mat-option></mat-option>
+                                <mat-option *ngFor="let sentiment of sentiments" [value]="sentiment">
+                                    {{sentiment}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </section>
+                </div>
+            </form>
+            <!-- </div> -->
+        </mat-sidenav>
+
+        <mat-sidenav-content class="col-md-5 example-sidenav-content">
+            <app-search-results *ngIf="searchFlag" [tweets]=tweets></app-search-results>
+
+        </mat-sidenav-content>
+
+        <mat-sidenav fixedTopGap="75" #sidenav opened disableClose="true" mode="side" position="end"
+            class="col-md-4 example-sidenav-2" fixedInViewport="true">
+            <app-news *ngIf="searchFlag" class="child news" [query]="_searchData"></app-news>
+            <div *ngIf="searchFlag" class="child">
+                <app-sentiment-chart [sentimentData]=sentimentData></app-sentiment-chart>
+            </div>
+        </mat-sidenav>
+
+    </mat-sidenav-container>
+</div>
