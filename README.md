@@ -2,7 +2,7 @@
 
 ## Screenshots of Live Project:
 
-![Screenshot1](Screenshots/Screen Shot 2021-12-12 at 8.32.18 AM.png)
+![Screenshot1]('Screenshots/Screen Shot 2021-12-12 at 8.32.18 AM.png')
 
 ![Screenshot2](Screenshots/Screen Shot 2021-12-12 at 8.32.37 AM.png)
 
