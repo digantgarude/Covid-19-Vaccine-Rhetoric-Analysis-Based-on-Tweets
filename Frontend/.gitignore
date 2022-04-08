@@ -10,6 +10,8 @@
 # dependencies
 /node_modules
 src/app/assets/processed_tweets.json
+src/app/assets/sentiment_corpus_back.json
+src/app/assets/sentiment_corpus.json
 
 # profiling files
 chrome-profiler-events*.json
