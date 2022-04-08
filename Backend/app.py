@@ -20,19 +20,8 @@ from flask_cors import CORS
 ##Replace this with updated json dump
 f = open('processed_tweets.json','rb')
 data = json.load(f)
-AWS_IP = '3.21.230.103'
-core_name = 'IR_P4'
-query_url = f"http://{AWS_IP}:8983/solr/{core_name}/select?q=QUERY&q.op=OR&fl=id&wt=json&indent=true&rows=50000"
-newsUrl = "https://newsapi.org/v2/everything?qInTitle=QUERY&from=FROM_DATE&to=TO_DATE&sortBy=relevancy&apiKey=f48e2c4f083d47819f528a027a932992"
-BingUrl = "https://bing-news-search1.p.rapidapi.com/news/search"
-querystring = {"q":"","count":"20","sortBy":"relevance","freshness":"Week","originalImg":"true","textFormat":"Raw","safeSearch":"Off"}
-headers = {
-    'x-bingapis-sdk': "true",
-    'x-rapidapi-host': "bing-news-search1.p.rapidapi.com",
-    'x-rapidapi-key': "bb60404af8msh6c2e8e326d43b16p120493jsndf9dcec2df50"
-    }
 
-
+from variables import AWS_IP,core_name,query_url,newsUrl,BingUrl,querystring,headers 
 
 def t_model(ids):
 
@@ -141,20 +130,8 @@ def get_news():
     if request.method == 'POST':
         if 'query' in request_data:
             query = request_data['query']
-            # tokens = query.split()
-            # result = []
-            # for token in tokens:
-            #     if token.lower() not in stopwords:
-            #         result.append(token)
-            # query = " ".join(result)
-            # print(query)
-            # result_dict=[];
             querystring["q"] = query
             resp = req.request("GET", BingUrl, headers=headers, params=querystring).json()
-            # print (resp["value"])
-            # url = newsUrl
-            # url = url.replace("QUERY", query)
-            # response = req.get(url).json()
             return jsonify(resp["value"])
 
 

@@ -1,0 +1,36 @@
+.example-card{
+    margin-bottom: 1%;
+    padding: 2% !important;
+    // width: 450px;
+    width: inherit;
+    
+    border-radius: 25px;
+    :hover{
+        cursor: pointer;
+    }
+}
+mat-grid-tile{
+    border-radius: 25px;
+}
+
+.mat-card-content{
+    word-break: break-all;
+    margin-top: 2%;
+  }
+.mat-card-image{
+    height: inherit;
+    // margin: 10px;
+    border-radius: 50px;
+    margin-bottom: 0px !important;
+    height: max-content;
+}
+.body{
+    overflow-y: auto;
+    height: 500px;
+    margin-bottom: 10px;
+}
+
+img{
+    margin-bottom: 0px !important;
+    height: max-content;
+}
